@@ -53,3 +53,14 @@ li a:hover{
     flex: 3;
     text-align: right;
 }
+
+.favorite{
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
+    font-size: 1.2rem;
+}
+
+.favorite.not{
+    color: grey;
+}

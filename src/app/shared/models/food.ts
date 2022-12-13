@@ -4,4 +4,5 @@ export class Food {
     tags?:string[]; // ? means value is optional
     imageUrl!:string;
     cookTime!:string;
+    favorite?:boolean;
 }
