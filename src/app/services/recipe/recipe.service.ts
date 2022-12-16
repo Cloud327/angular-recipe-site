@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { Recipe } from 'src/app/shared/models/recipe';
+import { HttpClient } from "@angular/common/http";
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RecipeService {
+  private recipesUrl = 'http://127.0.0.1:8000/recipes/';
+
+  constructor(private http: HttpClient) { }
+
+  getRecipes():Observable<Recipe[]>{
+    return this.http.get<Recipe[]>(this.recipesUrl);
+
+  }
+
+  // getFood():Recipe[] {
+  //   return [
+  //     {id:1,name:"Tomato Soup",   cookTime:"5 min",   imageUrl: "/assets/images/food-1.jpg", favorite: true, tags: ['Soup', 'Red', 'Vegetarian']},
+  //     {id:2,name:"Onion Soup",    cookTime:"10 min",  imageUrl: "/assets/images/food-2.jpg", favorite: true,  tags: ['Soup', 'Brown', 'Vegetarian']},
+  //     {id:3,name:"Potato Soup",   cookTime:"15 min",  imageUrl: "/assets/images/food-3.jpg", favorite: true,  tags: ['Soup', 'Cream']},
+  //     {id:4,name:"Asparagus Soup",cookTime:"20 min",  imageUrl: "/assets/images/food-4.jpg", favorite: false,  tags: ['Soup', 'Cream']},
+  //     {id:5,name:"Meat Soup",     cookTime:"25 min",  imageUrl: "/assets/images/food-5.jpg", favorite: false,  tags: ['Soup', 'Brown', 'Meaty']},
+  //     {id:6,name:"Mushroom Soup", cookTime:"30 min",  imageUrl: "/assets/images/food-6.jpg", favorite: true,  tags: ['Soup', 'Cream', 'Vegetarian']},
+  //   ]
+  // }
+}

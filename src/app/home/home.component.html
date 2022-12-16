@@ -1,4 +1,4 @@
-<ul>
+<!-- <ul>
     <li *ngFor="let food of foods">
         <a>
             <img src="{{food.imageUrl}}" alt="">
@@ -21,6 +21,33 @@
                         <span>🕑</span>
                         {{food.cookTime}}
                     </div>
+                </div>
+            </div>
+        </a>
+    </li>
+</ul> -->
+<ul>
+    <li *ngFor="let recipe of recipes">
+        <a>
+            <div class ="content"> 
+                <div class="name">
+                    {{recipe.name}}
+                </div>
+                <div>
+                    <span>
+                        ❤
+                    </span>
+                </div>
+                <div class="product-item-fooder">
+                    <div class="categories">
+                        <span *ngFor="let category of recipe.categories"> 
+                            {{category}}
+                        </span>
+                    </div>
+                    <!-- <div class="cook-time">
+                        <span>🕑</span>
+                        {{food.cookTime}}
+                    </div> -->
                 </div>
             </div>
         </a>
