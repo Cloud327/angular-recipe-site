@@ -50,6 +50,7 @@ export class AuthService {
         duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
       }))
     );
+    // == Example of how backend could be connected ==
     // return this.http.post<LoginResponse>('/api/auth/login', loginRequest).pipe(
     // tap((res: LoginResponse) => localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, res.accessToken)),
     // tap(() => this.snackbar.open('Login Successfull', 'Close', {
@@ -68,6 +69,7 @@ export class AuthService {
         duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
       })),
     );
+    // == Example of how backend could be connected ==
     // return this.http.post<RegisterResponse>('/api/auth/register', registerRequest).pipe(
     // tap((res: RegisterResponse) => this.snackbar.open(`User created successfully`, 'Close', {
     //  duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'

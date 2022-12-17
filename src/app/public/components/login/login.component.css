@@ -17,7 +17,7 @@ mat-card {
     min-width: 300px;
 }
 
-.error {
+form.mat-error {
     padding: 16px;
     width: 300px;
     color: white;
