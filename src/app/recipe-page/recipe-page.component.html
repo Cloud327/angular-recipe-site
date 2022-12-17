@@ -1,0 +1,30 @@
+<div *ngIf="recipe">
+    <img src="../../assets/images/{{recipe.slug}}.jpg" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
+    <h1>{{recipe.name}}</h1>
+    <div class="description">
+        {{recipe.description}}
+    </div>
+
+    <h2>
+        Ingredients:
+    </h2>
+
+    <table >
+        <tr *ngFor="let ingredient of recipe.ingredients">
+            <td>
+                {{ingredient.name}}
+            </td>
+            <td>
+                <!-- {{ingredient.amount}} -->
+                5
+            </td>
+        </tr>
+    </table>
+
+    <div>
+        <span class="author">
+            <br>
+            This recipe was authored by {{recipe.author}} on {{recipe.creationDate}}
+        </span>
+    </div>
+</div>
