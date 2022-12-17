@@ -1,10 +1,10 @@
-export interface Recipe {     // ! means value is mandatory
+export interface Recipe {    
     name:string;
     slug:string;
     description:string;
-    portionSize:number; // ? means value is optional
+    portionSize:number; 
     creationDate:string;
-    categories:[];
-    ingredients:[];
+    categories:[{name:string, description:string}];
+    ingredients:[{name:string, description:string}];
     author:string;
 }

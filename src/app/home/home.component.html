@@ -1,47 +1,20 @@
-<!-- <ul>
-    <li *ngFor="let food of foods">
-        <a>
-            <img src="{{food.imageUrl}}" alt="">
-            <div class ="content"> 
-                <div class="name">
-                    {{food.name}}
-                </div>
-                <div>
-                    <span class="favorite {{food.favorite?'':'not'}}">
-                        ❤
-                    </span>
-                </div>
-                <div class="product-item-fooder">
-                    <div class="tags">
-                        <span *ngFor="let tag of food.tags"> 
-                            {{tag}}
-                        </span>
-                    </div>
-                    <div class="cook-time">
-                        <span>🕑</span>
-                        {{food.cookTime}}
-                    </div>
-                </div>
-            </div>
-        </a>
-    </li>
-</ul> -->
 <ul>
     <li *ngFor="let recipe of recipes">
         <a>
+            <img src="../../assets/images/{{recipe.slug}}.jpg" alt="">
             <div class ="content"> 
                 <div class="name">
                     {{recipe.name}}
                 </div>
                 <div>
-                    <span>
+                    <!-- <span class="favorite {{recipe.favorite?'':'not'}}">
                         ❤
-                    </span>
+                    </span> -->
                 </div>
-                <div class="product-item-fooder">
-                    <div class="categories">
+                <div class="product-item-footer">
+                    <div class="tags">
                         <span *ngFor="let category of recipe.categories"> 
-                            {{category}}
+                            {{category.name}}
                         </span>
                     </div>
                     <!-- <div class="cook-time">
