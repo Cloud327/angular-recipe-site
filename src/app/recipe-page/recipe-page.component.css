@@ -1,0 +1,23 @@
+div {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+img {
+    margin-top: 1em;
+    width:50%;
+    height:auto;
+}
+
+.author {
+    font-size: .8rem;
+}
+
+table {
+    width: 30%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border:1px solid black;
+}
