@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessagesComponent } from './messages/messages.component';
 
 export const LOCALSTORAGE_TOKEN_KEY = 'angular-recipe-site';
 
@@ -24,6 +25,7 @@ export function getToken() {
     AppComponent,
     HeaderComponent,
     // MenuButtonComponent,
+    MessagesComponent,
     HomeComponent,
   ],
   imports: [
