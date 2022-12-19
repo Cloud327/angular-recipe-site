@@ -27,11 +27,11 @@ export class RecipeService {
 
   /** GET a specific recipe by its slug */
   getRecipe(slug: string):Observable<Recipe>{
-    const url = `${this.recipesUrl}/${slug}+/`;
+    const url = `${this.recipesUrl}${slug}/`;
 
     return this.http.get<Recipe>(url).pipe(
-      tap(_ => this.log(`fetched recipe slug=${slug}`)),
-      catchError(this.handleError<Recipe>(`getRecipe slug=${slug}`))
+      tap(_ => this.log(`fetched recipe = ${slug}`)),
+      catchError(this.handleError<Recipe>(`getRecipe = ${slug}`))
     )
   }
 
@@ -52,7 +52,7 @@ export class RecipeService {
   /** POST: add a new recipe to the server */
   addRecipe(recipe: Recipe): Observable<Recipe> {
     return this.http.post<Recipe>(this.recipesUrl, recipe, this.httpOptions).pipe(
-      tap((newRecipe: Recipe) => this.log(`added recipe w/ slug=${newRecipe.slug}`)),
+      tap((newRecipe: Recipe) => this.log(`added recipe = ${newRecipe.slug}`)),
       catchError(this.handleError<Recipe>('addRecipe'))
     );
   }
@@ -62,7 +62,7 @@ export class RecipeService {
     const url = `${this.recipesUrl}/${slug}`;
 
     return this.http.delete<Recipe>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted recipe slug=${slug}`)),
+      tap(_ => this.log(`deleted recipe = ${slug}`)),
       catchError(this.handleError<Recipe>('deleteRecipe'))
     );
   }
@@ -70,7 +70,7 @@ export class RecipeService {
   /** PUT: update the hero on the server */
   updateRecipe(recipe: Recipe): Observable<any> {
     return this.http.put(this.recipesUrl, recipe, this.httpOptions).pipe(
-      tap(_ => this.log(`updated recipe slug=${recipe.slug}`)),
+      tap(_ => this.log(`updated recipe = ${recipe.slug}`)),
       catchError(this.handleError<any>('updateRecipe'))
     );
   }
