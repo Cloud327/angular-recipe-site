@@ -38,7 +38,7 @@ export class RecipeService {
   /** GET recipes whose name contains the search term */
   searchRecipes(term: string): Observable<Recipe[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
+      // if not search term, return empty recipe array.
       return of([]);
     }
     return this.http.get<Recipe[]>(`${this.recipesUrl}/?name=${term}`).pipe(
