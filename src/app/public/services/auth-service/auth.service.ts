@@ -84,4 +84,5 @@ export class AuthService {
     const decodedToken = this.jwtService.decodeToken();
     return decodedToken.user;
   }
+
 }
