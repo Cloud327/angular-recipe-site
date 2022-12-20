@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RecipePageComponent } from './recipe-page/recipe-page.component';
 
 export const LOCALSTORAGE_TOKEN_KEY = 'angular-recipe-site';
 
@@ -25,6 +26,7 @@ export function getToken() {
     HeaderComponent,
     // MenuButtonComponent,
     HomeComponent,
+    RecipePageComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,7 +13,9 @@ export class RecipeService {
 
   getRecipes():Observable<Recipe[]>{
     return this.http.get<Recipe[]>(this.recipesUrl);
-
   }
 
+  getRecipe(slug:string):Observable<Recipe>{
+    return this.http.get<Recipe>(this.recipesUrl+slug+'/')
+  }
 }
