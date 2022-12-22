@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
   </mat-menu> -->
   `
 })
-export class AutoOpenMenuComponent {
+export class MenuButtonComponent {
   timedOutCloser: string | number | NodeJS.Timeout | undefined;
 
   constructor() { }
