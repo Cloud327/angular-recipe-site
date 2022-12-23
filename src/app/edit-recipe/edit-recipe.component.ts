@@ -12,7 +12,6 @@ import { Recipe } from '../shared/models/recipe';
 export class EditRecipeComponent {
 
   recipe: Recipe | undefined;
-  post: any = '';
 
   editForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),
@@ -27,9 +26,12 @@ export class EditRecipeComponent {
   ) { }
 
   onSubmit(post:any) {
-    this.post = post;
-    console.log("something was submitted");
-    console.log(post);
+    if (this.recipe) {
+      this.recipe.name = post.name;
+      this.recipe.description = post.description;
+      this.recipe.portionSize = post.portionSize;
+      this.recipeService.updateRecipe(this.recipe)
+    }
   }
 
   getRecipe(): void {
