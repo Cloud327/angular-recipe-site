@@ -11,7 +11,7 @@ import { RecipeService } from '../services/recipe/recipe.service';
 })
 export class RecipePageComponent implements OnInit {
 
-  recipe: Recipe | undefined;
+  recipe: Recipe;
 
   constructor(
     private route: ActivatedRoute,

@@ -3,7 +3,7 @@
     <mat-card-title>Edit Recipe</mat-card-title>
 
     <mat-card-content>
-      <form [formGroup]="editForm" (ngSubmit)="onSubmit">
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
 
         <mat-form-field>
           <input type="text" matInput placeholder="Recipe Name" formControlName="name">
@@ -38,3 +38,11 @@
 
   </mat-card>
 </div>
+
+
+
+<ng-template #forminfo>
+  <div class="container">
+    {{ post | json }}
+  </div>
+</ng-template>
