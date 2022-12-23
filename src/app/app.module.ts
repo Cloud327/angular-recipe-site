@@ -4,22 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { MenuButtonComponent } from './menu-button/menu-button.component';
+// import { MenuButtonComponent } from './menu-button/menu-button.component';
 import { HomeComponent } from './home/home.component';
 
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessagesComponent } from './messages/messages.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
