@@ -1,4 +1,7 @@
 <div *ngIf="recipe">
+    <button routerLink="/edit-recipe/{{recipe.slug}}">
+        Edit Recipe
+    </button>
     <img src="../../assets/images/{{recipe.slug}}.jpg" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
     <h1>{{recipe.name}}</h1>
     <div class="description">

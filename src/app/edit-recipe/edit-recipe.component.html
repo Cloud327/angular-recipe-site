@@ -1,0 +1,33 @@
+<!-- <mat-toolbar color="primary">
+  <span class="fill-remaining-space">Type setting via component</span>
+</mat-toolbar> -->
+
+<div class="container" *ngIf="!post; else forminfo" novalidate> 
+  <form *formGroup="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+    <mat-form-field class="form-element">
+      <input matInput type="number" placeholder="Type via template" formControlName="firstname">
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput [type]="dynamictype" placeholder="Type via component" formControlName="lastname">
+    </mat-form-field>
+
+    <input type="number" placeholder="default input, type via template" formControlName="defaulttemp"/>
+    <br />
+    <input [type]="dynamictype" placeholder="default input, type via component" formControlName="defaultdyn"/>
+    <br />
+    <input type="number" [type]="dynamictype" placeholder="default input, additional type attribute" formControlName="defaultadditional"/>
+
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit Form</button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div class="container">
+    {{ post | json }}
+  </div>
+</ng-template>

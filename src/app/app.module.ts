@@ -14,6 +14,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessagesComponent } from './messages/messages.component';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
+import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 export const LOCALSTORAGE_TOKEN_KEY = 'angular-recipe-site';
 
@@ -29,6 +31,7 @@ export function getToken() {
     MessagesComponent,
     HomeComponent,
     RecipePageComponent,
+    EditRecipeComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ export function getToken() {
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatFormFieldModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
