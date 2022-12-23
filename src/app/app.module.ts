@@ -17,6 +17,17 @@ import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+
+
+
 export const LOCALSTORAGE_TOKEN_KEY = 'angular-recipe-site';
 
 export function getToken() {
@@ -40,6 +51,12 @@ export function getToken() {
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatFormFieldModule,
+    FormsModule, 
+    ReactiveFormsModule, 
+    MatCardModule, 
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,

@@ -1,6 +1,6 @@
-import { Component, Directive, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RecipeService } from '../services/recipe/recipe.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -8,37 +8,20 @@ import { RecipeService } from '../services/recipe/recipe.service';
   styleUrls: ['./edit-recipe.component.css']
 })
 export class EditRecipeComponent {
-  formGroup: FormGroup;
-  post: any = '';
-  dynamictype: string = "number";
 
-  constructor(private formBuilder: FormBuilder) {}
+  editForm = new FormGroup({
+    name: new FormControl(null, [Validators.required]),
+    description: new FormControl(null, [Validators.required]),
+    portionSize: new FormControl(null, [Validators.required]),
+  })
 
-  ngOnInit() {
-    this.createForm();
+  constructor(
+    private router: Router,
+  ) { }
+
+  onSubmit(post:any) {
+    console.log("something was submitted");
+    console.log(post);
   }
 
-  createForm() {
-    this.formGroup = this.formBuilder.group({
-      firstname: [null, Validators.required],
-      lastname: [null, Validators.required],
-      defaultdyn: [null, Validators.required],
-      defaulttemp: [null, Validators.required],
-      defaultadditional: [null, Validators.required],
-    });
-  }
-
-  onSubmit(post: any) {
-    this.post = post;
-  }
-}
-
-@Directive({
-  selector: 'input[type=number]',
-})
-export class TestDirective {
-  constructor(private elementRef: ElementRef) {}
-  ngOnInit() {
-    console.log('type=number', this.elementRef.nativeElement);
-  }
 }
