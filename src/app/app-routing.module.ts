@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth-guard/auth.guard';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
+import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'recipe-page/:slug',component:RecipePageComponent},
+  {path:'edit-recipe/:slug',component:EditRecipeComponent},
   {
     // Lazy Loading the public module (all children routes will be under '/public/{route from lazy loaded module}')
     path: 'public',
