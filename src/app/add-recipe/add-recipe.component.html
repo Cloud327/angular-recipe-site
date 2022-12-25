@@ -1,0 +1,50 @@
+<div>
+    <mat-card>
+      <mat-card-title>Add Recipe</mat-card-title>
+  
+      <mat-card-content class = "content">
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit(addForm.value)" class="form">
+  
+          <mat-form-field class="form-element">
+            <input type="text" matInput placeholder="Recipe Name" formControlName="name">
+            <!-- Here we can display error messages/hints for the user, if one of the Validators adds an error to the email 
+             with the .touched check we only display the hints if the input was touched by the users -->
+            <mat-error
+              *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+              Recipe name is required</mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="form-element">
+            <input type="text" matInput placeholder="Recipe description" formControlName="description">
+            <mat-error
+              *ngIf="this.addForm.get('description')?.touched && this.addForm.get('description')?.hasError('required')">
+              Recipe description is required</mat-error>
+          </mat-form-field>
+          
+          <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Portion Size" formControlName="portionSize">
+            <mat-error
+              *ngIf="this.addForm.get('portionSize')?.touched && this.addForm.get('portionSize')?.hasError('required')">
+              First Name is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field class ="form-element" appearance="fill">
+            <mat-label>Ingredients</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let ingredient of ingredients">
+                {{ingredient}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+
+          <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!addForm.valid">Edit Recipe</button>
+          </div>
+  
+        </form>
+      </mat-card-content>
+  
+    </mat-card>
+  </div>
