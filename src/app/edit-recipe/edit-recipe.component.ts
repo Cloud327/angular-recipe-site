@@ -9,7 +9,7 @@ import { Recipe } from '../shared/models/recipe';
   templateUrl: './edit-recipe.component.html',
   styleUrls: ['./edit-recipe.component.css']
 })
-export class EditRecipeComponent {
+export class EditRecipeComponent implements OnInit{
 
   recipe: Recipe | undefined;
 
@@ -25,14 +25,21 @@ export class EditRecipeComponent {
     private router: Router,
   ) { }
 
+  ngOnInit(): void {
+    this.getRecipe();
+  }
+
   onSubmit(post:any) {
     console.log("in onSubmit")
     if (this.recipe) {
-      console.log("submitting a recipe with slug: ", this.recipe.slug);
+      console.log(" recipe before:", this.recipe)
+      console.log("trying to update ", this.recipe.name, "into ", this.slugify(post.name));
       this.recipe.name = post.name;
       this.recipe.slug = this.slugify(post.name);
       this.recipe.description = post.description;
       this.recipe.portionSize = post.portionSize;
+
+      console.log("recipe after:", this.recipe)
       this.recipeService.updateRecipe(this.recipe)
     }
   }
