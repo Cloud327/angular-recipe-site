@@ -4,7 +4,23 @@ export interface Recipe {
     description:string;
     portionSize:number; 
     creationDate:string;
-    categories:[{name:string, description:string}];
-    ingredients:[{name:string, description:string}];
+    categories:Category[];
+    ingredients:IngredientAmount[];
     author:string;
+}
+
+ export interface IngredientAmount {
+    amount:string;
+    ingredient:Ingredient;
+
+}
+
+export interface Category {
+    name:string
+    description:string
+}
+
+export interface Ingredient {
+    name:string;
+    description:string;
 }
