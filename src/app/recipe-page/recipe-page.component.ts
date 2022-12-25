@@ -18,10 +18,14 @@ export class RecipePageComponent implements OnInit {
     private RecipeService: RecipeService,
     // private location: Location,
   ) { }
-
   
   ngOnInit(): void {
     this.getRecipe();
+  }
+
+  deleteButton(): void {
+    console.log("button to delete ", this.recipe.slug, "pressed")
+    this.RecipeService.deleteRecipe(this.recipe.slug)
   }
 
   getRecipe(): void {
