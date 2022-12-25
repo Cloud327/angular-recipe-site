@@ -26,8 +26,11 @@ export class EditRecipeComponent {
   ) { }
 
   onSubmit(post:any) {
+    console.log("in onSubmit")
     if (this.recipe) {
+      console.log("submitting a recipe with slug: ", this.recipe.slug);
       this.recipe.name = post.name;
+      this.recipe.slug = this.slugify(post.name);
       this.recipe.description = post.description;
       this.recipe.portionSize = post.portionSize;
       this.recipeService.updateRecipe(this.recipe)
@@ -37,5 +40,15 @@ export class EditRecipeComponent {
   getRecipe(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
     this.recipeService.getRecipe(slug as any).subscribe(recipe => this.recipe = recipe);  
+  }
+
+  slugify(name:string) :string {
+    // angular should have a method to slugify something...
+    return name.toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '');            // Trim - from end of text
   }
 }
