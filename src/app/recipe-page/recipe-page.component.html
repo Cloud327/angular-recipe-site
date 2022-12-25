@@ -13,21 +13,20 @@
     </h2>
 
     <table >
-        <tr *ngFor="let ingredient of recipe.ingredients">
+        <tr *ngFor="let ingredient of recipe.ingredients" title="{{ingredient.ingredient.description}}">
             <td>
-                {{ingredient.name}}
+                {{ingredient.ingredient.name}}
             </td>
             <td>
-                <!-- {{ingredient.amount}} -->
-                5
+                {{ingredient.amount}}
             </td>
         </tr>
     </table>
 
-    <div>
+    <!-- <div>
         <span class="author">
             <br>
             This recipe was authored by {{recipe.author}} on {{recipe.creationDate}}
         </span>
-    </div>
+    </div> -->
 </div>
