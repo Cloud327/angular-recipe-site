@@ -42,6 +42,7 @@ export class EditRecipeComponent implements OnInit{
       console.log("recipe after:", this.recipe)
       this.recipeService.updateRecipe(this.recipe)
     }
+    this.router.navigate([''])
   }
 
   getRecipe(): void {
