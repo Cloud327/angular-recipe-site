@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from 'src/app/shared/models/recipe';
+import { Category, Ingredient, Recipe } from 'src/app/shared/models/recipe';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from 'src/app/services/tools/message.service';
@@ -9,6 +9,8 @@ import { MessageService } from 'src/app/services/tools/message.service';
 })
 export class RecipeService {
   private recipesUrl = 'http://127.0.0.1:8000/recipes/';
+  private ingredientsUrl = 'http://127.0.0.1:8000/ingredients/';
+  private categoriesUrl = 'http://127.0.0.1:8000/categories/';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
@@ -22,6 +24,21 @@ export class RecipeService {
     return this.http.get<Recipe[]>(this.recipesUrl).pipe(
       tap(_ => this.log('fetched recipes')),
       catchError(this.handleError<Recipe[]>('getRecipes', []))
+    );
+  }
+  /** GET all ingredients */
+  getIngredients():Observable<Ingredient[]>{
+    return this.http.get<Ingredient[]>(this.ingredientsUrl).pipe(
+      tap(_ => this.log('fetched ingredients')),
+      catchError(this.handleError<Recipe[]>('getIngredients', []))
+    );
+  }
+
+  /** GET all categories */
+  getCategories():Observable<Category[]>{
+    return this.http.get<Category[]>(this.categoriesUrl).pipe(
+      tap(_ => this.log('fetched categories')),
+      catchError(this.handleError<Recipe[]>('getCategories', []))
     );
   }
 
