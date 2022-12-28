@@ -36,8 +36,8 @@
             <div *ngFor="let ingredientAmount of ingredientAmounts.controls; let i=index" [formGroupName]="i" >
               <mat-form-field class="form-element">
                 <mat-select formControlName="ingredient">
-                  <mat-option *ngFor="let ingredient of knownIngredients" [value] = "ingredient">
-                    {{ingredient}}
+                  <mat-option *ngFor="let ingredient of knownIngredients" [value] = "ingredient.name">
+                    {{ingredient.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -55,8 +55,8 @@
               <div *ngFor="let cat of categories.controls; let i=index" [formGroupName]="i" >
                 <mat-form-field class="form-element">
                   <mat-select formControlName="category">
-                    <mat-option *ngFor="let category of knownCategories" [value] = "category">
-                      {{category}}
+                    <mat-option *ngFor="let category of knownCategories" [value] = "category.name">
+                      {{category.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>

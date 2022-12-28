@@ -10,10 +10,8 @@ import { Category, Ingredient, Recipe } from '../shared/models/recipe';
   styleUrls: ['./add-recipe.component.css']
 })
 export class AddRecipeComponent { 
-  // ingredients: Ingredient[] = [];
-  // categories: Category[] = [];
-  knownIngredients: string[] = ["tomato", "milk", "beef"];
-  knownCategories: string[] = ["vegetarian", "meatetarian", "french"];
+  knownIngredients: Ingredient[] = [];
+  knownCategories: Category[] = [];
 
   addForm = this.formBuilder.group({
     name: new FormControl(null, [Validators.required]),
@@ -30,7 +28,10 @@ export class AddRecipeComponent {
     category: new FormControl(null, [Validators.required])
   })
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private recipeService: RecipeService,
+    ) { }
 
   ngOnInit(): void {
     // get ingredients and categories from backend
@@ -41,12 +42,27 @@ export class AddRecipeComponent {
   }
 
   onSubmit(post:any) {
-    console.log("something was submitted: ", post)
+    let newRecipe : Recipe = {name: '', slug:'', description:'',portionSize:1,creationDate:'',categories: [], ingredients: [], author:''}
+    newRecipe.name = post.name;
+    newRecipe.slug = this.slugify(post.name);
+    newRecipe.description = post.description;
+    newRecipe.portionSize = post.portionSize;
+    newRecipe.creationDate = new Date().toDateString(); // i dont know which format this is, but i dont know what format we use either soo...
+    newRecipe.author = "add recipe page" // TODO: check which user is currently logged in 
+    newRecipe.categories = post.categories
+    newRecipe.ingredients = post.ingredientAmounts
+
+
+    console.log("trying to submit: ", newRecipe)
   }
 
   /** get stuff from recipeService */
-  getIngredients(): void { }
-  getCategories(): void { }
+  getIngredients(): void {
+    this.recipeService.getIngredients().subscribe(ingredients => this.knownIngredients = ingredients)
+   }
+  getCategories(): void {
+    this.recipeService.getCategories().subscribe(categories => this.knownCategories = categories)
+   }
 
 
   get ingredientAmounts() : FormArray {  
