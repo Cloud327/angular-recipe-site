@@ -45,3 +45,19 @@ export interface RefreshToken {
     status: number;
     message: string;
   }
+
+
+
+  /*
+   These are the only ones used right now
+   */
+  export interface UserCredentials {
+    email: string;
+    password: string;
+  }
+
+  export interface LoggedInUser {
+    id: number,
+    token: string,
+    email:string
+  }
