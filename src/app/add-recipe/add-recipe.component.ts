@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe/recipe.service';
 import { Category, Ingredient, Recipe } from '../shared/models/recipe';
@@ -9,31 +9,35 @@ import { Category, Ingredient, Recipe } from '../shared/models/recipe';
   templateUrl: './add-recipe.component.html',
   styleUrls: ['./add-recipe.component.css']
 })
-export class AddRecipeComponent {
-
-  recipe: Recipe | undefined;
+export class AddRecipeComponent { 
   // ingredients: Ingredient[] = [];
   // categories: Category[] = [];
-  ingredients: string[] = ["tomato", "milk", "beef"];
-  categories: string[] = ["vegetarian", "meatetarian", "french"];
+  knownIngredients: string[] = ["tomato", "milk", "beef"];
+  knownCategories: string[] = ["vegetarian", "meatetarian", "french"];
 
-  addForm = new FormGroup({
+  addForm = this.formBuilder.group({
     name: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
     portionSize: new FormControl(null, [Validators.required]),
-    categories: new FormControl(null, [Validators.required]),
-    ingredients: new FormControl(null, [Validators.required]),
+    ingredientAmounts: this.formBuilder.array([]),
+    categories: this.formBuilder.array([]),
+  })
+  ingredientForm = this.formBuilder.group({
+    ingredient: new FormControl(null, [Validators.required]),
+    amount: new FormControl(null, [Validators.required]),
+  })
+  categoryFrom = this.formBuilder.group({
+    category: new FormControl(null, [Validators.required])
   })
 
-  constructor(
-    private route: ActivatedRoute,
-    private recipeService: RecipeService,
-    private router: Router,
-  ) { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    // get ingredients and categories from backend
     this.getIngredients();
     this.getCategories();
+    this.addIngredient();
+    this.addCategory();
   }
 
   onSubmit(post:any) {
@@ -43,6 +47,31 @@ export class AddRecipeComponent {
   /** get stuff from recipeService */
   getIngredients(): void { }
   getCategories(): void { }
+
+
+  get ingredientAmounts() : FormArray {  
+    return this.addForm.get("ingredientAmounts") as FormArray  
+  }  
+
+  get categories() : FormArray {
+    return this.addForm.get("categories") as FormArray
+  }
+
+  addIngredient(): void { 
+    this.ingredientAmounts.push(this.ingredientForm) 
+  }
+  removeIngredient(i:number): void { 
+    this.ingredientAmounts.removeAt(i)
+  }
+
+  addCategory(): void { 
+    this.categories.push(this.categoryFrom) 
+  }
+  removeCategory(i:number): void { 
+    this.categories.removeAt(i)
+  }
+
+
 
   slugify(name:string) :string {
     // angular should have a method to slugify something...
