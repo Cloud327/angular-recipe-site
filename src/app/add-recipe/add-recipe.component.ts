@@ -48,12 +48,12 @@ export class AddRecipeComponent {
     newRecipe.description = post.description;
     newRecipe.portionSize = post.portionSize;
     newRecipe.creationDate = new Date().toDateString(); // i dont know which format this is, but i dont know what format we use either soo...
-    newRecipe.author = "add recipe page" // TODO: check which user is currently logged in 
-    newRecipe.categories = post.categories
-    newRecipe.ingredients = post.ingredientAmounts
+    newRecipe.author = "guest"; // TODO: check which user is currently logged in and submit them instead
+    newRecipe.categories = post.categories;
+    newRecipe.ingredients = post.ingredientAmounts;
 
-
-    console.log("trying to submit: ", newRecipe)
+    console.log("trying to submit: ", newRecipe);
+    this.recipeService.addRecipe(newRecipe);
   }
 
   /** get stuff from recipeService */
