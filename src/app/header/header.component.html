@@ -1,3 +1,7 @@
+<!-- 
+  TODO: would be nice to not show everything to everyone...
+ -->
+
 
 <header>
   <div class="container">
@@ -5,29 +9,30 @@
       <nav>
 
       <mat-menu #rootMenu="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="subMenu">Power</button>
-        <button mat-menu-item>System settings</button>
+        <button mat-menu-item [matMenuTriggerFor]="subMenu">Manage</button>
+        <button routerLink="/protected/dashboard" mat-menu-item>Dashboard</button>
       </mat-menu>
 
       <mat-menu #subMenu="matMenu">
-        <button mat-menu-item>Shut down</button>
-        <button mat-menu-item>Restart</button>
-        <button mat-menu-item>Hibernate</button>
+        <button routerLink="/add-recipe" mat-menu-item>Add Recipe</button>
+        <button mat-menu-item>Manage User</button>
       </mat-menu>
-
-      <!-- <button mat-icon-button [matMenuTriggerFor]="rootMenu">
-        <mat-icon>more_vert</mat-icon>
-      </button> -->
       
-
-
+      <mat-menu #adminMenu="matMenu">
+        <button mat-menu-item>Manage Recipes</button>
+        <button mat-menu-item>Manage Comments</button>
+        <button mat-menu-item>Manage Users</button>
+      </mat-menu>
 
         <ul>
           <li > <!-- dont show this if a user is logged in -->
             <a href="#" routerLink="/login-page"> Login </a>
           </li>
           <li > <!-- only show this if a user is logged in -->
-            <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger" (mouseover)="locationMenuTrigger.openMenu()"> User </a>
+            <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
+          </li>
+          <li > <!-- only show this if a user is logged in -->
+            <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
           </li>
           <li>
             <a href="#" routerLink="/"> Search </a>
@@ -39,15 +44,3 @@
     </div>
 
 </header>
-    
-    
-    <!--
-    <div class="header-right">
-        <app-menu-button>Home</app-menu-button>
-
-        <a href="#home">Home</a>
-      <a href="#contact">Contact</a>
-      <a href="#login">About</a>
-      
-    </div>
-    -->

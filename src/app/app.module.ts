@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 
@@ -64,6 +65,7 @@ export function getToken() {
     FormsModule, 
     ReactiveFormsModule, 
     MatCardModule, 
+    MatMenuModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
