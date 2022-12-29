@@ -3,14 +3,17 @@ import { Category, Ingredient, Recipe } from 'src/app/shared/models/recipe';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from 'src/app/services/tools/message.service';
+import { RecipeComment } from 'src/app/shared/models/recipeComment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
+  
   private recipesUrl = 'http://127.0.0.1:8000/recipes/';
   private ingredientsUrl = 'http://127.0.0.1:8000/ingredients/';
   private categoriesUrl = 'http://127.0.0.1:8000/categories/';
+  private commentsUrl = 'http://127.0.0.1:8000/comments/';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
@@ -51,6 +54,20 @@ export class RecipeService {
       catchError(this.handleError<Recipe>(`getRecipe = ${slug}`))
     )
   }
+
+
+  getRecipeComments(): Observable<RecipeComment[]> {
+    return this.http.get<RecipeComment[]>(this.commentsUrl).pipe(
+      tap(_ => this.log(`fetched comments`)),
+      catchError(this.handleError<RecipeComment[]>(`getRecipeComments`)))
+  }
+  postRecipeComment(comment: RecipeComment): Observable<RecipeComment> {
+    return this.http.post<RecipeComment>(this.commentsUrl, comment, this.httpOptions).pipe(
+      tap(_ => this.log(`uploaded comment`)),
+      catchError(this.handleError<any>('postRecipeComment')));
+  }
+
+
 
   /** GET recipes whose name contains the search term */
   searchRecipes(term: string): Observable<Recipe[]> {
