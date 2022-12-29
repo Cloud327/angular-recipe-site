@@ -11,7 +11,9 @@ import { RecipeService } from '../services/recipe/recipe.service';
 })
 export class RecipePageComponent implements OnInit {
 
+
   recipeSlug: RecipeSlug;
+  recipeID: number = 1;
 
   constructor(
     private route: ActivatedRoute,

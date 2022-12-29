@@ -1,0 +1,46 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+           Comments
+        </mat-panel-title>
+        <mat-panel-description>
+            Click to {{panelOpenState ? 'hide' : 'show'}} comments
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+    <!-- this is the content of the collapsable -->
+    <!-- display all comments with same recipeID as we got from recipe-page-component -->
+    <div *ngFor="let comment of comments">
+        <mat-card *ngIf="comment.recipe == recipeID">
+            <h3> {{comment.text}} </h3>
+        </mat-card>
+    </div>
+
+    <!-- form to submit own comments -->
+    <div id="respond">
+        <mat-card>
+            <mat-card-title>Comment Recipe:</mat-card-title>
+        
+            <mat-card-content class = "content">
+              <form [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm.value)" class="form">
+        
+                <mat-form-field class="form-element">
+                  <input type="text" matInput placeholder="Comment" formControlName="text">
+                </mat-form-field>
+        
+                <div class="form-element">
+                  <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!commentForm.valid">Submit Comment</button>
+                </div>
+        
+              </form>
+            </mat-card-content>
+        
+          </mat-card>
+      </div>
+</mat-expansion-panel>
+
+
+
+
+
