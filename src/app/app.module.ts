@@ -30,6 +30,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { CommentsComponent } from './comments/comments.component';
+import { ManageUserComponent } from './manage-user/manage-user.component';
 
 
 
@@ -51,6 +52,7 @@ export function getToken() {
     EditRecipeComponent,
     AddRecipeComponent,
     CommentsComponent,
+    ManageUserComponent,
   ],
   imports: [
     BrowserModule,

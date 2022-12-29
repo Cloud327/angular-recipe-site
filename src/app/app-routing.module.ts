@@ -5,12 +5,14 @@ import { AuthGuard } from './auth-guard/auth.guard';
 import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { ManageUserComponent } from './manage-user/manage-user.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'recipe-page/:slug',component:RecipePageComponent},
   {path:'edit-recipe/:slug',component:EditRecipeComponent},
   {path:'add-recipe',component:AddRecipeComponent},
+  {path:'manage-user',component:ManageUserComponent},
   {
     // Lazy Loading the public module (all children routes will be under '/public/{route from lazy loaded module}')
     path: 'public',

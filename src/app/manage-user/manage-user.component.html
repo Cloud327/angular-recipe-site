@@ -1,0 +1,48 @@
+<p>manage-user works!</p>
+
+
+<mat-card>
+<mat-card-title>Change Password</mat-card-title>
+  
+<mat-card-content>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit(changePasswordForm.value)">
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="New Password" formControlName="newPassword">
+      <mat-error
+        *ngIf="this.changePasswordForm.get('newPassword')?.touched && this.changePasswordForm.get('newPassword')?.hasError('required')">
+        Password is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" matInput placeholder="Password Confirmation" formControlName="newPasswordConfirm">
+      <mat-error
+        *ngIf="this.changePasswordForm.get('newPasswordConfirm')?.touched && this.changePasswordForm.get('newPasswordConfirm')?.hasError('required')">
+        Password Confirmation is required</mat-error>
+    </mat-form-field>
+
+    <mat-error
+      *ngIf="this.changePasswordForm.get('newPasswordConfirm')?.dirty && this.changePasswordForm.hasError('passwordsNotMatching')">
+      Passwords are not matching!</mat-error>
+
+    <div class="button">
+      <!-- Button is disabled(not clickable), if our changePasswordForm contains Validation Errors -->
+      <button type="submit" mat-button [disabled]="!changePasswordForm.valid">Change Password</button>
+    </div>
+
+  </form>
+</mat-card-content>
+
+</mat-card>
+
+
+
+<!-- export interface User{
+    is_superuser:boolean;
+    is_staff:boolean;
+    email:string;
+    password:string;
+    groups?:[]
+    savedRecipes?:[]
+    createdRecipes?:[]
+} -->
