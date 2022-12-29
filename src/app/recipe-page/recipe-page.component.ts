@@ -11,21 +11,26 @@ import { RecipeService } from '../services/recipe/recipe.service';
 })
 export class RecipePageComponent implements OnInit {
 
-  recipe: Recipe | undefined;
+  recipe: Recipe;
+  recipeID: number = 1;
 
   constructor(
     private route: ActivatedRoute,
     private RecipeService: RecipeService,
     // private location: Location,
   ) { }
-
   
   ngOnInit(): void {
     this.getRecipe();
   }
 
+  deleteButton(): void {
+    console.log("button to delete ", this.recipe.slug, "pressed")
+    this.RecipeService.deleteRecipe(this.recipe.slug)
+  }
+
   getRecipe(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
-    this.RecipeService.getRecipe(slug as any).subscribe(recipe => this.recipe = recipe);  
+    this.RecipeService.getRecipe(slug as any).subscribe(recipe => {this.recipe = recipe; /* TODO: also asign recipeID */});  
   }
 }

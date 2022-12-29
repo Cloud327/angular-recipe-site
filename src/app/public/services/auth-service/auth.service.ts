@@ -1,10 +1,11 @@
 import { LOCALSTORAGE_TOKEN_KEY } from './../../../app.module';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '../../interfaces';
+import { LoginRequest, UserCredentials, LoginResponse, RegisterRequest, RegisterResponse, LoggedInUser } from '../../interfaces';
+import { MessageService } from 'src/app/services/tools/message.service';
 
 export const fakeLoginResponse: LoginResponse = {
   // fakeAccessToken.....should all come from real backend
@@ -33,7 +34,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private snackbar: MatSnackBar,
-    private jwtService: JwtHelperService
+    private jwtService: JwtHelperService,
+    private messageService: MessageService
   ) { }
 
   /*
@@ -43,13 +45,24 @@ export class AuthService {
 
    The `..of()..` can be removed if you have a real backend, at the moment, this is just a faked response
   */
-  login(loginRequest: LoginRequest): Observable<LoginResponse> {
-    return of(fakeLoginResponse).pipe(
-      tap((res: LoginResponse) => localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, res.accessToken)),
-      tap(() => this.snackbar.open('Login Successfull', 'Close', {
-        duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
-      }))
-    );
+  // login(loginRequest: LoginRequest): Observable<LoginResponse> {
+  //   return of(fakeLoginResponse).pipe(
+  //     tap((res: LoginResponse) => localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, res.accessToken)),
+  //     tap(() => this.snackbar.open('Login Successfull', 'Close', {
+  //       duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+  //     }))
+  //   );
+
+  login(username: string, password: string): Observable<LoggedInUser> {
+    return this.http.post<LoggedInUser>(
+      'http://127.0.0.1:8000/api-user-login/', { username, password }).pipe(tap(
+         _ =>
+        this.log(`login: ${username}`), catchError(this.handleError<LoggedInUser>(`login`))
+      )
+
+      );
+
+  }
     // == Example of how backend could be connected ==
     // return this.http.post<LoginResponse>('/api/auth/login', loginRequest).pipe(
     // tap((res: LoginResponse) => localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, res.accessToken)),
@@ -57,7 +70,7 @@ export class AuthService {
     //  duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
     // }))
     // );
-  }
+  
 
   /*
    The `..of()..` can be removed if you have a real backend, at the moment, this is just a faked response
@@ -85,4 +98,38 @@ export class AuthService {
     return decodedToken.user;
   }
 
+
+  setLoggedInUser(userData: LoggedInUser): void {
+    if (localStorage.getItem('userData') !== JSON.stringify(userData)) {
+      localStorage.setItem('userData', JSON.stringify(userData));
+    }
+   }
+
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   *
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
+  /** Log a message with the MessageService */
+  private log(message: string) {
+    this.messageService.add(`AuthService: ${message}`);
+  }
+
+  
 }

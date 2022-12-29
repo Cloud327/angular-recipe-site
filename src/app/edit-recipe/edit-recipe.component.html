@@ -1,0 +1,39 @@
+<div>
+  <mat-card>
+    <mat-card-title>Edit Recipe</mat-card-title>
+
+    <mat-card-content class = "content">
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)" class="form">
+
+        <mat-form-field class="form-element">
+          <input type="text" matInput placeholder="Recipe Name" formControlName="name">
+          <!-- Here we can display error messages/hints for the user, if one of the Validators adds an error to the email 
+           with the .touched check we only display the hints if the input was touched by the users -->
+          <mat-error
+            *ngIf="this.editForm.get('name')?.touched && this.editForm.get('name')?.hasError('required')">
+            Recipe name is required</mat-error>
+        </mat-form-field>
+      
+        <mat-form-field class="form-element">
+          <input type="text" matInput placeholder="Recipe description" formControlName="description">
+          <mat-error
+            *ngIf="this.editForm.get('description')?.touched && this.editForm.get('description')?.hasError('required')">
+            Recipe description is required</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="form-element">
+          <input type="number" matInput placeholder="Portion Size" formControlName="portionSize">
+          <mat-error
+            *ngIf="this.editForm.get('portionSize')?.touched && this.editForm.get('portionSize')?.hasError('required')">
+            First Name is required</mat-error>
+        </mat-form-field>
+
+        <div class="form-element">
+          <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!editForm.valid">Edit Recipe</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+
+  </mat-card>
+</div>

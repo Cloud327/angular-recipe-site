@@ -1,0 +1,83 @@
+<div>
+    <mat-card>
+      <!-- <mat-card-title> Add Recipe</mat-card-title> -->
+
+
+      <mat-card-content class = "content">      
+        <h2> Recipe Details </h2>
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit(addForm.value)" class="form">
+  
+          <mat-form-field class="form-element">
+            <input type="text" matInput placeholder="Recipe Name" formControlName="name">
+            <mat-error
+              *ngIf="this.addForm.get('name')?.touched && this.addForm.get('name')?.hasError('required')">
+              Recipe name is required</mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="form-element">
+            <input type="text" matInput placeholder="Recipe description" formControlName="description">
+            <mat-error
+              *ngIf="this.addForm.get('description')?.touched && this.addForm.get('description')?.hasError('required')">
+              Recipe description is required</mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="form-element">
+            <input type="number" matInput placeholder="Portion Size" formControlName="portionSize">
+            <mat-error
+              *ngIf="this.addForm.get('portionSize')?.touched && this.addForm.get('portionSize')?.hasError('required')">
+              First Name is required</mat-error>
+          </mat-form-field>
+  
+          <br>
+          <h2> Ingredients </h2>
+          <button type="button" (click) = "addIngredient()"> Add ingredient</button>
+          <br>
+          <span formArrayName="ingredientAmounts" >
+            <div *ngFor="let ingredientAmount of ingredientAmounts.controls; let i=index" [formGroupName]="i" >
+              <mat-form-field class="form-element">
+                <mat-select formControlName="ingredient">
+                  <mat-option *ngFor="let ingredient of knownIngredients" [value] = "ingredient.name">
+                    {{ingredient.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input type="text" matInput placeholder="Ingredient Amount" formControlName="amount">
+              </mat-form-field>
+                <button type="button" (click)="removeIngredient(i)" class="btn btn-danger">Remove</button>
+              </div>
+            </span>
+          
+            <h2> Categories </h2>
+            <button type="button" (click) = "addCategory()"> Add Category</button>
+            <br>
+            <span formArrayName="categories" >
+              <div *ngFor="let cat of categories.controls; let i=index" [formGroupName]="i" >
+                <mat-form-field class="form-element">
+                  <mat-select formControlName="category">
+                    <mat-option *ngFor="let category of knownCategories" [value] = "category.name">
+                      {{category.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                  <button type="button" (click)="removeCategory(i)" class="btn btn-danger">Remove</button>
+                </div>
+              </span>
+            
+
+
+
+
+              <br>
+          <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!addForm.valid">Add Recipe</button>
+          </div>
+  
+        </form>
+      </mat-card-content>
+  
+    </mat-card>
+
+    
+  {{ this.addForm.value | json }}
+  </div>
