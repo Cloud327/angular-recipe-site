@@ -25,8 +25,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatOptionModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 
@@ -47,6 +49,7 @@ export function getToken() {
     RecipePageComponent,
     EditRecipeComponent,
     AddRecipeComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ export function getToken() {
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatExpansionModule,
     MatSelectModule,
     MatFormFieldModule,
     MatOptionModule,
