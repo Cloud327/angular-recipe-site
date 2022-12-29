@@ -12,7 +12,7 @@ const routes: Routes = [
   {path:'recipe-page/:slug',component:RecipePageComponent},
   {path:'edit-recipe/:slug',component:EditRecipeComponent},
   {path:'add-recipe',component:AddRecipeComponent},
-  {path:'manage-user',component:ManageUserComponent},
+  {path:'manage-user',component:ManageUserComponent, canActivate: [AuthGuard]},
   {
     // Lazy Loading the public module (all children routes will be under '/public/{route from lazy loaded module}')
     path: 'public',
