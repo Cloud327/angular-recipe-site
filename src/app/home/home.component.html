@@ -7,7 +7,7 @@
 
             <div class ="content"> 
                 <div class="name">
-                    {{recipe.name}}
+                    {{recipe.recipe.name}}
                 </div>
                 <div>
                     <!-- <span class="favorite {{recipe.favorite?'':'not'}}">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="product-item-footer">
                     <div class="tags">
-                        <span *ngFor="let category of recipe.categories"> 
+                        <span *ngFor="let category of recipe.recipe.categories"> 
                             {{category.name}}
                         </span>
                     </div>

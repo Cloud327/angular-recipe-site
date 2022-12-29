@@ -32,6 +32,7 @@ export class LoginComponent {
     ).subscribe({
       next: (data) => {
         this.authService.setLoggedInUser(data);
+        console.log(data);
       },
       error: (error) => {
         console.log(error);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../services/recipe/recipe.service';
-import { Recipe } from '../shared/models/recipe';
+import { Recipe, RecipeSlug } from '../shared/models/recipe';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,7 @@ import { Recipe } from '../shared/models/recipe';
 })
 export class HomeComponent implements OnInit {
 
-  recipes:Recipe[] = [];
+  recipes:RecipeSlug[] = [];
 
   constructor(private RecipeService:RecipeService) { }
 

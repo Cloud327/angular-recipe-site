@@ -1,5 +1,5 @@
-<div *ngIf="recipe">
-    <button routerLink="/edit-recipe/{{recipe.slug}}">
+<div *ngIf="recipeSlug">
+    <button routerLink="/edit-recipe/{{recipeSlug.slug}}">
         Edit Recipe
     </button>
     <button routerLink="" (click)="deleteButton()">
@@ -7,10 +7,10 @@
     </button>
 
 
-    <img src="../../assets/images/{{recipe.slug}}.jpg" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
-    <h1>{{recipe.name}}</h1>
+    <img src="../../assets/images/{{recipeSlug.slug}}.jpg" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
+    <h1>{{recipeSlug.recipe.name}}</h1>
     <div class="description">
-        {{recipe.description}}
+        {{recipeSlug.recipe.description}}
     </div>
 
     <h2>
@@ -18,7 +18,7 @@
     </h2>
 
     <table >
-        <tr *ngFor="let ingredient of recipe.ingredients" title="{{ingredient.ingredient.description}}">
+        <tr *ngFor="let ingredient of recipeSlug.recipe.ingredients" title="{{ingredient.ingredient.description}}">
             <td>
                 {{ingredient.ingredient.name}}
             </td>
@@ -28,6 +28,6 @@
         </tr>
     </table>
 
-    {{recipe | json}}
+    {{recipeSlug.recipe | json}}
 
 </div>

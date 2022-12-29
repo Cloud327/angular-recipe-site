@@ -1,12 +1,16 @@
 export interface Recipe {    
     name:string;
-    slug:string;
     description:string;
     portionSize:number; 
     creationDate:string;
     categories:Category[];
     ingredients:IngredientAmount[];
     author:string;
+}
+
+export interface RecipeSlug {
+    recipe:Recipe;
+    slug:string
 }
 
  export interface IngredientAmount {

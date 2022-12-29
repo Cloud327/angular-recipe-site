@@ -42,9 +42,8 @@ export class AddRecipeComponent {
   }
 
   onSubmit(post:any) {
-    let newRecipe : Recipe = {name: '', slug:'', description:'',portionSize:1,creationDate:'',categories: [], ingredients: [], author:''}
+    let newRecipe : Recipe = {name: '', description:'',portionSize:1,creationDate:'',categories: [], ingredients: [], author:''}
     newRecipe.name = post.name;
-    newRecipe.slug = this.slugify(post.name);
     newRecipe.description = post.description;
     newRecipe.portionSize = post.portionSize;
     newRecipe.creationDate = new Date().toDateString(); // i dont know which format this is, but i dont know what format we use either soo...

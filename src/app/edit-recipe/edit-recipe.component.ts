@@ -2,7 +2,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe/recipe.service';
-import { Recipe } from '../shared/models/recipe';
+import { Recipe, RecipeSlug } from '../shared/models/recipe';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -11,7 +11,7 @@ import { Recipe } from '../shared/models/recipe';
 })
 export class EditRecipeComponent implements OnInit{
 
-  recipe: Recipe | undefined;
+  recipeSlug: RecipeSlug | undefined;
 
   editForm = new FormGroup({
     name: new FormControl(null, [Validators.required]),
@@ -31,25 +31,25 @@ export class EditRecipeComponent implements OnInit{
 
   onSubmit(post:any) {
     console.log("in onSubmit")
-    if (this.recipe) {
-      console.log(" recipe before:", this.recipe)
-      console.log("trying to update ", this.recipe.name, "into ", this.slugify(post.name));
-      this.recipe.name = post.name;
-      this.recipe.slug = this.slugify(post.name);
-      this.recipe.description = post.description;
-      this.recipe.portionSize = post.portionSize;
+    if (this.recipeSlug) {
+      console.log(" recipe before:", this.recipeSlug)
+      this.recipeSlug.recipe.name = post.name;
+      this.recipeSlug.recipe.description = post.description;
+      this.recipeSlug.recipe.portionSize = post.portionSize;
 
-      console.log("recipe after:", this.recipe)
-      this.recipeService.updateRecipe(this.recipe)
+      console.log("recipe after:", this.recipeSlug.recipe)
+      this.recipeService.updateRecipe(this.recipeSlug.recipe)
     }
     this.router.navigate([''])
   }
 
   getRecipe(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
-    this.recipeService.getRecipe(slug as any).subscribe(recipe => this.recipe = recipe);  
+    this.recipeService.getRecipe(slug as any).subscribe(recipe => this.recipeSlug = recipe);  
   }
 
+
+  // Backend is handling slugify
   slugify(name:string) :string {
     // angular should have a method to slugify something...
     return name.toString().toLowerCase()

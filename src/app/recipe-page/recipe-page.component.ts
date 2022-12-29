@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Recipe } from '../shared/models/recipe';
+import { RecipeSlug } from '../shared/models/recipe';
 import { RecipeService } from '../services/recipe/recipe.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { RecipeService } from '../services/recipe/recipe.service';
 })
 export class RecipePageComponent implements OnInit {
 
-  recipe: Recipe;
+  recipeSlug: RecipeSlug;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,12 +24,13 @@ export class RecipePageComponent implements OnInit {
   }
 
   deleteButton(): void {
-    console.log("button to delete ", this.recipe.slug, "pressed")
-    this.RecipeService.deleteRecipe(this.recipe.slug)
+    console.log("button to delete ", this.recipeSlug.slug, "pressed")
+    this.RecipeService.deleteRecipe(this.recipeSlug.slug)
   }
 
   getRecipe(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
-    this.RecipeService.getRecipe(slug as any).subscribe(recipe => this.recipe = recipe);  
+    console.log("slug ", slug)
+    this.RecipeService.getRecipe(slug as any).subscribe(recipe => this.recipeSlug = recipe);  
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category, Ingredient, Recipe } from 'src/app/shared/models/recipe';
+import { Category, Ingredient, Recipe, RecipeSlug } from 'src/app/shared/models/recipe';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from 'src/app/services/tools/message.service';
@@ -9,6 +9,7 @@ import { MessageService } from 'src/app/services/tools/message.service';
 })
 export class RecipeService {
   private recipesUrl = 'http://127.0.0.1:8000/recipes/';
+  private recipeSlugUrl = 'http://127.0.0.1:8000/recipeSlugs/';
   private ingredientsUrl = 'http://127.0.0.1:8000/ingredients/';
   private categoriesUrl = 'http://127.0.0.1:8000/categories/';
 
@@ -20,10 +21,12 @@ export class RecipeService {
 
 
   /** GET all recipes */
-  getRecipes():Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.recipesUrl).pipe(
+  getRecipes():Observable<RecipeSlug[]>{
+
+
+    return this.http.get<RecipeSlug[]>(this.recipeSlugUrl).pipe(
       tap(_ => this.log('fetched recipes')),
-      catchError(this.handleError<Recipe[]>('getRecipes', []))
+      catchError(this.handleError<RecipeSlug[]>('getRecipes', []))
     );
   }
   /** GET all ingredients */
@@ -43,12 +46,12 @@ export class RecipeService {
   }
 
   /** GET a specific recipe by its slug */
-  getRecipe(slug: string):Observable<Recipe>{
-    const url = `${this.recipesUrl}${slug}/`;
+  getRecipe(slug: string):Observable<RecipeSlug>{
+    const url = `${this.recipeSlugUrl}${slug}/`;
 
-    return this.http.get<Recipe>(url).pipe(
+    return this.http.get<RecipeSlug>(url).pipe(
       tap(_ => this.log(`fetched recipe = ${slug}`)),
-      catchError(this.handleError<Recipe>(`getRecipe = ${slug}`))
+      catchError(this.handleError<RecipeSlug>(`getRecipe = ${slug}`))
     )
   }
 
@@ -58,7 +61,7 @@ export class RecipeService {
       // if not search term, return empty recipe array.
       return of([]);
     }
-    return this.http.get<Recipe[]>(`${this.recipesUrl}/?name=${term}`).pipe(
+    return this.http.get<Recipe[]>(`${this.recipeSlugUrl}/?name=${term}`).pipe(
       tap(x => x.length ? 
         this.log(`found recipes matching "${term}"`) :
         this.log(`no recipes matching "${term}"`)),
@@ -68,15 +71,15 @@ export class RecipeService {
 
   /** POST: add a new recipe to the server */
   addRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(this.recipesUrl, recipe, this.httpOptions).pipe(
-      tap((newRecipe: Recipe) => this.log(`added recipe = ${newRecipe.slug}`)),
+    return this.http.post<Recipe>(this.recipeSlugUrl, recipe, this.httpOptions).pipe(
+      tap((newRecipe: Recipe) => this.log(`added recipe = ${newRecipe.name}`)),
       catchError(this.handleError<Recipe>('addRecipe'))
     );
   }
 
   /** DELETE: delete the hero from the server */
   deleteRecipe(slug: string): Observable<Recipe> {
-    const url = `${this.recipesUrl}/${slug}`;
+    const url = `${this.recipeSlugUrl}/${slug}`;
 
     return this.http.delete<Recipe>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted recipe = ${slug}`)),
@@ -86,8 +89,8 @@ export class RecipeService {
 
   /** PUT: update the hero on the server */
   updateRecipe(recipe: Recipe): Observable<any> {
-    return this.http.put(this.recipesUrl, recipe, this.httpOptions).pipe(
-      tap(_ => this.log(`updated recipe = ${recipe.slug}`)),
+    return this.http.put(this.recipeSlugUrl, recipe, this.httpOptions).pipe(
+      tap(_ => this.log(`updated recipe = ${recipe.name}`)),
       catchError(this.handleError<any>('updateRecipe'))
     );
   }
