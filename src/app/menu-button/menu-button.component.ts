@@ -1,25 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MenuService } from '../menu-service.service';
-import { MenuItem } from '../menuItem';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-menu-button',
-  templateUrl: './menu-button.component.html',
-  styleUrls: ['./menu-button.component.css']
-})
-export class MenuButtonComponent implements OnInit {
-  @Input() menuItem: MenuItem = {} as MenuItem;
-  isActive: boolean = false;
-
-  constructor(private menuService: MenuService) {}
-
-  ngOnInit(): void {
-    this.menuService.$activeButton.subscribe((activeButton) => this.isActive = (this.menuItem === activeButton));
-  }
+  selector: 'app-auto-open-menu',
+  template: `
   
-  setActive(): void {
-    this.menuService.$activeButton.next(this.menuItem);
+  <!-- <div class="app-nav-item" *matMenuTriggerFor="menu" #menuTrigger="matMenuTrigger"
+                  (mouseenter)="mouseEnter(menuTrigger)" (mouseleave)="mouseLeave(menuTrigger)">
+      <ng-content select="[trigger]"></ng-content>
+  </div>
+  <mat-menu #Rmenu="matMenu" *hasBackdrop="false">
+      <div (mouseenter)="mouseEnter(menuTrigger)" (mouseleave)="mouseLeave(menuTrigger)">
+          <ng-content select="[content]"></ng-content>
+      </div>
+  </mat-menu> -->
+  `
+})
+export class AutoOpenMenuComponent {
+  timedOutCloser: string | number | NodeJS.Timeout | undefined;
+
+  constructor() { }
+
+  mouseEnter(trigger: { openMenu: () => void; }) {
+    if (this.timedOutCloser) {
+      clearTimeout(this.timedOutCloser);
+    }
+    trigger.openMenu();
   }
 
-
+  mouseLeave(trigger: { closeMenu: () => void; }) {
+    this.timedOutCloser = setTimeout(() => {
+      trigger.closeMenu();
+    }, 50);
+  }
 }
