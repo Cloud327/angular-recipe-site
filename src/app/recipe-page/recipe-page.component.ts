@@ -12,6 +12,7 @@ import { RecipeService } from '../services/recipe/recipe.service';
 export class RecipePageComponent implements OnInit {
 
   recipe: Recipe;
+  recipeID: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,6 @@ export class RecipePageComponent implements OnInit {
 
   getRecipe(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
-    this.RecipeService.getRecipe(slug as any).subscribe(recipe => this.recipe = recipe);  
+    this.RecipeService.getRecipe(slug as any).subscribe(recipe => {this.recipe = recipe; /* TODO: also asign recipeID */});  
   }
 }
