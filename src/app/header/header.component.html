@@ -1,28 +1,46 @@
+<!-- 
+  TODO: would be nice to not show everything to everyone...
+ -->
+
 
 <header>
   <div class="container">
       <a href="#" routerLink="/" class="logo">Recipe Explorer</a>
       <nav>
+
+      <mat-menu #rootMenu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="subMenu">Manage</button>
+        <button routerLink="/protected/dashboard" mat-menu-item>Dashboard</button>
+      </mat-menu>
+
+      <mat-menu #subMenu="matMenu">
+        <button routerLink="/add-recipe" mat-menu-item>Add Recipe</button>
+        <button mat-menu-item>Manage User</button>
+      </mat-menu>
+      
+      <mat-menu #adminMenu="matMenu">
+        <button mat-menu-item>Manage Recipes</button>
+        <button mat-menu-item>Manage Comments</button>
+        <button mat-menu-item>Manage Users</button>
+      </mat-menu>
+
         <ul>
+          <li > <!-- dont show this if a user is logged in -->
+            <a href="#" routerLink="/login-page"> Login </a>
+          </li>
+          <li > <!-- only show this if a user is logged in -->
+            <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
+          </li>
+          <li > <!-- only show this if a user is logged in -->
+            <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
+          </li>
           <li>
-            <a href="#" routerLink="/login-page"> Login</a>
+            <a href="#" routerLink="/"> Search </a>
           </li>
         </ul>
-  
+
+
       </nav>
-      
     </div>
 
 </header>
-    
-    
-    <!--
-    <div class="header-right">
-        <app-menu-button>Home</app-menu-button>
-
-        <a href="#home">Home</a>
-      <a href="#contact">Contact</a>
-      <a href="#login">About</a>
-      
-    </div>
-    -->
