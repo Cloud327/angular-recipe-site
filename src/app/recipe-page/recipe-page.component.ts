@@ -27,7 +27,7 @@ export class RecipePageComponent implements OnInit {
 
   deleteButton(): void {
     console.log("button to delete ", this.recipeSlug.slug, "pressed")
-    this.RecipeService.deleteRecipe(this.recipeSlug.slug)
+    this.RecipeService.deleteRecipe(this.recipeSlug.slug).subscribe()
   }
 
   getRecipe(): void {

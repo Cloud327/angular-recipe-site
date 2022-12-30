@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe/recipe.service';
-import { Category, Ingredient, Recipe } from '../shared/models/recipe';
+import { Category, Ingredient, Recipe, RecipeSlug } from '../shared/models/recipe';
 
 @Component({
   selector: 'app-add-recipe',
@@ -51,8 +51,10 @@ export class AddRecipeComponent {
     newRecipe.categories = post.categories;
     newRecipe.ingredients = post.ingredientAmounts;
 
+    let RecipeSlug : RecipeSlug = {recipe:newRecipe, slug:""}
+
     console.log("trying to submit: ", newRecipe);
-    this.recipeService.addRecipe(newRecipe);
+    this.recipeService.addRecipe(RecipeSlug).subscribe();
   }
 
   /** get stuff from recipeService */

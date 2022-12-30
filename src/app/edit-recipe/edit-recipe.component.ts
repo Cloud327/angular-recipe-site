@@ -26,19 +26,21 @@ export class EditRecipeComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.getRecipe();
+    this.getRecipe()
   }
 
   onSubmit(post:any) {
     console.log("in onSubmit")
     if (this.recipeSlug) {
-      console.log(" recipe before:", this.recipeSlug)
-      this.recipeSlug.recipe.name = post.name;
-      this.recipeSlug.recipe.description = post.description;
-      this.recipeSlug.recipe.portionSize = post.portionSize;
+      // console.log(" recipe before:", this.recipeSlug)
+      // this.recipeSlug.recipe.name = post.name;
+      // this.recipeSlug.recipe.description = post.description;
+      // this.recipeSlug.recipe.portionSize = post.portionSize;
 
-      console.log("recipe after:", this.recipeSlug.recipe)
-      this.recipeService.updateRecipe(this.recipeSlug.recipe)
+      // console.log("recipe after:", this.recipeSlug)
+      let newRecipe: Recipe = {name:post.name, description:post.description, portionSize:post.portionSize};
+      let newRecipeSlug: RecipeSlug = {recipe:newRecipe, slug:this.recipeSlug.slug};
+      this.recipeService.updateRecipe(newRecipeSlug).subscribe();
     }
     this.router.navigate([''])
   }

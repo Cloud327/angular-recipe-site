@@ -36,7 +36,7 @@ export class RecipeService {
   getIngredients():Observable<Ingredient[]>{
     return this.http.get<Ingredient[]>(this.ingredientsUrl).pipe(
       tap(_ => this.log('fetched ingredients')),
-      catchError(this.handleError<Recipe[]>('getIngredients', []))
+      catchError(this.handleError<Ingredient[]>('getIngredients', []))
     );
   }
 
@@ -44,7 +44,7 @@ export class RecipeService {
   getCategories():Observable<Category[]>{
     return this.http.get<Category[]>(this.categoriesUrl).pipe(
       tap(_ => this.log('fetched categories')),
-      catchError(this.handleError<Recipe[]>('getCategories', []))
+      catchError(this.handleError<Category[]>('getCategories', []))
     );
   }
 
@@ -73,42 +73,44 @@ export class RecipeService {
 
 
   /** GET recipes whose name contains the search term */
-  searchRecipes(term: string): Observable<Recipe[]> {
+  searchRecipes(term: string): Observable<RecipeSlug[]> {
     if (!term.trim()) {
       // if not search term, return empty recipe array.
       return of([]);
     }
-    return this.http.get<Recipe[]>(`${this.recipeSlugUrl}/?name=${term}`).pipe(
+    return this.http.get<RecipeSlug[]>(`${this.recipeSlugUrl}?name=${term}`).pipe(
       tap(x => x.length ? 
         this.log(`found recipes matching "${term}"`) :
         this.log(`no recipes matching "${term}"`)),
-      catchError(this.handleError<Recipe[]>('searchRecipes', []))
+      catchError(this.handleError<RecipeSlug[]>('searchRecipes', []))
     );
   }
 
   /** POST: add a new recipe to the server */
-  addRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(this.recipeSlugUrl, recipe, this.httpOptions).pipe(
-      tap((newRecipe: Recipe) => this.log(`added recipe = ${newRecipe.name}`)),
-      catchError(this.handleError<Recipe>('addRecipe'))
+  addRecipe(recipeSlug: RecipeSlug): Observable<any> {
+    return this.http.post<RecipeSlug>(this.recipeSlugUrl, recipeSlug, this.httpOptions).pipe(
+      tap((newRecipe: RecipeSlug) => this.log(`added recipe = ${newRecipe.recipe.name}`)),
+      catchError(this.handleError<RecipeSlug>('addRecipe'))
     );
   }
 
-  /** DELETE: delete the hero from the server */
-  deleteRecipe(slug: string): Observable<Recipe> {
-    const url = `${this.recipeSlugUrl}/${slug}`;
+  /** DELETE: delete the recipe from the server */
+  deleteRecipe(slug: string): Observable<RecipeSlug> {
+    const url = `${this.recipeSlugUrl}${slug}/`;
 
-    return this.http.delete<Recipe>(url, this.httpOptions).pipe(
+    return this.http.delete<RecipeSlug>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted recipe = ${slug}`)),
-      catchError(this.handleError<Recipe>('deleteRecipe'))
+      catchError(this.handleError<RecipeSlug>('deleteRecipe'))
     );
   }
 
-  /** PUT: update the hero on the server */
-  updateRecipe(recipe: Recipe): Observable<any> {
-    return this.http.put(this.recipeSlugUrl, recipe, this.httpOptions).pipe(
-      tap(_ => this.log(`updated recipe = ${recipe.name}`)),
-      catchError(this.handleError<any>('updateRecipe'))
+  /** PUT: update the recpe on the server */
+  updateRecipe(recipeSlug: RecipeSlug): Observable<RecipeSlug> {
+    const url = `${this.recipeSlugUrl}${recipeSlug.slug}/`;
+    console.log("recipeSlug:", recipeSlug)
+    return this.http.put<RecipeSlug>(url, recipeSlug, this.httpOptions).pipe(
+      tap(_ => this.log(`updated recipe = ${recipeSlug.recipe.name}`)),
+      catchError(this.handleError<RecipeSlug>('updateRecipe'))
     );
   }
 

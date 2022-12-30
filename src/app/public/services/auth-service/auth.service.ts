@@ -54,6 +54,8 @@ export class AuthService {
   //   );
 
   login(username: string, password: string): Observable<LoggedInUser> {
+
+    console.log({ username, password })
     return this.http.post<LoggedInUser>(
       'http://127.0.0.1:8000/api-user-login/', { username, password }).pipe(tap(
          _ =>
