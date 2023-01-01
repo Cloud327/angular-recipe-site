@@ -93,6 +93,13 @@ export class RecipeService {
       catchError(this.handleError<RecipeSlug>('addRecipe'))
     );
   }
+  /** POST: add a new recipe to the server */
+  addRecipeWithoutSlug(recipeSlug: Recipe): Observable<any> {
+    return this.http.post<Recipe>(this.recipesUrl, recipeSlug, this.httpOptions).pipe(
+      tap((newRecipe: Recipe) => this.log(`added recipe = ${newRecipe.name}`)),
+      catchError(this.handleError<Recipe>('addRecipe'))
+    );
+  }
 
   /** DELETE: delete the recipe from the server */
   deleteRecipe(slug: string): Observable<RecipeSlug> {

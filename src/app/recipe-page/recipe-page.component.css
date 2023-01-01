@@ -7,6 +7,9 @@ img {
     margin-top: 1em;
     width:50%;
     height:auto;
+    height: 30rem;
+    object-fit: cover;
+    object-position: 100% 0;
 }
 
 .author {

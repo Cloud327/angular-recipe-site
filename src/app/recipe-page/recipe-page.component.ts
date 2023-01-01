@@ -13,7 +13,7 @@ export class RecipePageComponent implements OnInit {
 
 
   recipeSlug: RecipeSlug;
-  recipeID: number = 1;
+  recipeID: number = -1;
 
   constructor(
     private route: ActivatedRoute,
