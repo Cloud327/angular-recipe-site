@@ -3,7 +3,7 @@
         <a href="#" routerLink="/recipe-page/{{recipe.slug}}">
             <!-- <a href="#" routerLink="/login-page"> Login</a> -->
 
-            <img src="../../assets/images/{{recipe.slug}}.jpg" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
+            <img src="{{recipe.recipe.picture}}" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
 
             <div class ="content"> 
                 <div class="name">

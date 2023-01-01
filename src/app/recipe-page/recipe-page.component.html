@@ -7,7 +7,7 @@
     </button>
 
 
-    <img src="../../assets/images/{{recipeSlug.slug}}.jpg" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
+    <img src="{{recipeSlug.recipe.picture}}" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">
     <h1>{{recipeSlug.recipe.name}}</h1>
     <div class="description">
         {{recipeSlug.recipe.description}}
