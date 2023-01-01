@@ -1,0 +1,17 @@
+
+<h2>
+    Manage Recipes
+</h2>
+<table *ngIf="recipes.length > 0">
+    <tr>
+        <th> Recipe</th>
+        <th> Slug</th>
+        <th> Author</th>
+    </tr>
+    <tr *ngFor="let recipe of recipes">
+        <td> {{recipe.recipe.name}} </td>
+        <td> {{recipe.slug}} </td>
+        <td> {{recipe.recipe.author}} </td>
+        <td> <button (click)="deleteRecipeButton(recipe)" onclick="this.disabled=true">Delete Recipe</button> </td>
+    </tr>
+</table>

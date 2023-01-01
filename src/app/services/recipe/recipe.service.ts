@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, of, tap } from 'rxjs';
 import { MessageService } from 'src/app/services/tools/message.service';
 import { RecipeComment } from 'src/app/shared/models/recipeComment';
+import { User } from 'src/app/shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class RecipeService {
   private ingredientsUrl = 'http://127.0.0.1:8000/ingredients/';
   private categoriesUrl = 'http://127.0.0.1:8000/categories/';
   private commentsUrl = 'http://127.0.0.1:8000/comments/';
+  private usersUrl = 'http://127.0.0.1:8000/users/';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
@@ -30,6 +32,14 @@ export class RecipeService {
     return this.http.get<RecipeSlug[]>(this.recipeSlugUrl).pipe(
       tap(_ => this.log('fetched recipes')),
       catchError(this.handleError<RecipeSlug[]>('getRecipes', []))
+    );
+  }
+  
+  /** GET all users */
+  getUsers():Observable<User[]>{
+    return this.http.get<User[]>(this.usersUrl).pipe(
+      tap(_ => this.log('fetched users')),
+      catchError(this.handleError<User[]>('getUsers', []))
     );
   }
   /** GET all ingredients */
@@ -108,6 +118,25 @@ export class RecipeService {
     return this.http.delete<RecipeSlug>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted recipe = ${slug}`)),
       catchError(this.handleError<RecipeSlug>('deleteRecipe'))
+    );
+  }
+
+  /** DELETE: delete the comment from the server */
+  deleteComment(id: number): Observable<RecipeComment> {
+    const url = `${this.commentsUrl}${id}/`;
+
+    return this.http.delete<RecipeComment>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted comment = ${id}`)),
+      catchError(this.handleError<RecipeComment>('deleteComment'))
+    );
+  }
+  /** DELETE: delete the user from the server */
+  deleteUser(id: number): Observable<User> {
+    const url = `${this.usersUrl}${id}/`;
+
+    return this.http.delete<User>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted user = ${id}`)),
+      catchError(this.handleError<User>('deleteUser'))
     );
   }
 

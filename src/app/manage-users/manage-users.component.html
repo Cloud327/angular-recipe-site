@@ -1,0 +1,16 @@
+<h2>
+    Manage Users
+</h2>
+<table *ngIf="users.length > 0">
+    <tr>
+        <th> User ID</th>
+        <th> Email </th>
+        <th> Is Admin</th>
+    </tr>
+    <tr *ngFor="let user of users">
+        <td> {{user.id}} </td>
+        <td> {{user.email}} </td>
+        <td> {{user.is_staff}} </td>
+        <td> <button (click)="deleteUserButton(user)" onclick="this.disabled=true">Delete User</button> </td>
+    </tr>
+</table>
