@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class AddRecipeComponent {
     category: new FormControl(null, [Validators.required])
   })
 
+
   constructor(
     private formBuilder: FormBuilder,
     private recipeService: RecipeService,
@@ -37,8 +39,12 @@ export class AddRecipeComponent {
     // get ingredients and categories from backend
     this.getIngredients();
     this.getCategories();
+
+    // add empty ingredient and category
     this.addIngredient();
     this.addCategory();
+
+
   }
 
   onSubmit(post:any) {
@@ -46,15 +52,22 @@ export class AddRecipeComponent {
     newRecipe.name = post.name;
     newRecipe.description = post.description;
     newRecipe.portionSize = post.portionSize;
-    newRecipe.creationDate = new Date().toDateString(); // i dont know which format this is, but i dont know what format we use either soo...
-    newRecipe.author = "guest"; // TODO: check which user is currently logged in and submit them instead
+    // date needs to be yyyy-mm-dd
+
+    const datepipe: DatePipe = new DatePipe('en-US')
+    let formattedDate = datepipe.transform(new Date(), 'YYYY-MM-dd')
+    console.log(formattedDate)
+
+    newRecipe.creationDate = formattedDate as string; // i dont know which format this is, but i dont know what format we use either soo...
+    newRecipe.author = "guest@guest.com"; // TODO: check which user is currently logged in and submit them instead
     newRecipe.categories = post.categories;
     newRecipe.ingredients = post.ingredientAmounts;
 
     let RecipeSlug : RecipeSlug = {recipe:newRecipe, slug:""}
 
     console.log("trying to submit: ", newRecipe);
-    this.recipeService.addRecipe(RecipeSlug).subscribe();
+    // this.recipeService.addRecipeSlug(RecipeSlug).subscribe(); // this gives keyError on "user_id"
+    this.recipeService.addRecipeWithoutSlug(newRecipe).subscribe();
   }
 
   /** get stuff from recipeService */
