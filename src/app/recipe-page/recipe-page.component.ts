@@ -33,6 +33,9 @@ export class RecipePageComponent implements OnInit {
   getRecipe(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
     console.log("slug ", slug)
-    this.RecipeService.getRecipe(slug as any).subscribe(recipe => this.recipeSlug = recipe);  
+    this.RecipeService.getRecipe(slug as any).subscribe(recipeSlug =>{ 
+      this.recipeSlug = recipeSlug;
+      this.recipeID = this.recipeSlug.recipe.id?this.recipeSlug.recipe.id:0; // recipeID is set if it exists, otherwise is 0
+    });  
   }
 }
