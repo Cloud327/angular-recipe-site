@@ -1,4 +1,5 @@
-export interface Recipe {    
+export interface Recipe {
+    id?:number;    
     name:string;
     description?:string;
     portionSize?:number; 
@@ -6,6 +7,7 @@ export interface Recipe {
     categories?:Category[];
     ingredients?:IngredientAmount[];
     author?:string;
+    picture?:string;
 }
 
 export interface RecipeSlug {
