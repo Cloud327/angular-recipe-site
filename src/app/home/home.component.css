@@ -64,3 +64,9 @@ li a:hover{
 .favorite.not{
     color: grey;
 }
+
+img{
+    height: 12rem;
+    object-fit: cover;
+    object-position: 100% 0;
+}
