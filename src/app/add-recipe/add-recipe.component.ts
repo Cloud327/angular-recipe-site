@@ -66,8 +66,8 @@ export class AddRecipeComponent {
     let RecipeSlug : RecipeSlug = {recipe:newRecipe, slug:""}
 
     console.log("trying to submit: ", newRecipe);
-    // this.recipeService.addRecipeSlug(RecipeSlug).subscribe(); // this gives keyError on "user_id"
-    this.recipeService.addRecipeWithoutSlug(newRecipe).subscribe();
+    this.recipeService.addRecipe(RecipeSlug).subscribe(); // this gives keyError on "user_id"
+    // this.recipeService.addRecipeWithoutSlug(newRecipe).subscribe();
   }
 
   /** get stuff from recipeService */
