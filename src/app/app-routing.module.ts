@@ -10,9 +10,12 @@ import { ManageCommentsComponent } from './manage-comments/manage-comments.compo
 import { ManageRecipesComponent } from './manage-recipes/manage-recipes.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { SecretComponent } from './secret/secret.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
+  {path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path:'recipe-page/:slug',component:RecipePageComponent},
   {path:'edit-recipe/:slug',component:EditRecipeComponent},
   {path:'add-recipe',component:AddRecipeComponent},

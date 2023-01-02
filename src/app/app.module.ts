@@ -8,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 
 import { JwtModule } from '@auth0/angular-jwt';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessagesComponent } from './messages/messages.component';
@@ -35,7 +35,8 @@ import { ManageCommentsComponent } from './manage-comments/manage-comments.compo
 import { ManageRecipesComponent } from './manage-recipes/manage-recipes.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { SecretComponent } from './secret/secret.component';
-
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TokenInterceptor } from './token.interceptor';
 
 
 
@@ -61,6 +62,7 @@ export function getToken() {
     ManageRecipesComponent,
     ManageUsersComponent,
     SecretComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,7 @@ export function getToken() {
       }
     })
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -25,20 +25,42 @@
         <button routerLink="/manage-users" mat-menu-item>Manage Users</button>
       </mat-menu>
 
-        <ul>
-          <li > <!-- dont show this if a user is logged in -->
+
+
+        
+      <ul>
+        <div *ngIf="user; then loggedIn else loggedOut"></div>
+
+        <ng-template #loggedIn>
+          <div *ngIf="user!.isStaff === true; then isStaff else isUser"></div>
+        </ng-template>
+
+        <ng-template #isStaff>
+              <li > <!-- only show this if an admin is logged in -->
+                <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
+              </li>
+              <li > 
+                <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
+              </li>
+        </ng-template>  
+
+        <ng-template #isUser>
+              <li > <!-- only show this if a user is logged in -->
+                <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
+              </li>
+        </ng-template>
+
+
+        <ng-template #loggedOut>
+          <li> <!-- dont show this if a user is logged in -->
             <a href="#" routerLink="/login-page"> Login </a>
           </li>
-          <li > <!-- only show this if a user is logged in -->
-            <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
-          </li>
-          <li > <!-- only show this if a user is logged in -->
-            <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
-          </li>
-          <!-- <li>
-            <a href="#" routerLink="/"> Search </a>
-          </li> -->
-        </ul>
+        </ng-template>
+        <li>
+          <a href="#" routerLink="/"> Search </a>
+        </li>
+          
+      </ul>
 
 
       </nav>

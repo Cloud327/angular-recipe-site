@@ -26,12 +26,15 @@ export class LoginComponent {
     if (!this.loginForm.valid) {
       return;
     }
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(
-      // route to protected/dashboard, if login was successfull
-      tap(() => this.router.navigate(['../../protected/dashboard']))
-    ).subscribe({
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
+    // .pipe(
+    //   // route to protected/dashboard, if login was successfull
+    //   tap(() => this.router.navigate(['../../protected/dashboard']))
+    // )
+    .subscribe({
       next: (data) => {
         this.authService.setLoggedInUser(data);
+        this.router.navigateByUrl(`/user-profile/${data.id}`);
         console.log(data);
       },
       error: (error) => {

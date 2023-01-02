@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { LOCALSTORAGE_TOKEN_KEY } from 'src/app/app.module';
+import { AuthService } from 'src/app/public/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,12 +11,13 @@ import { LOCALSTORAGE_TOKEN_KEY } from 'src/app/app.module';
 export class DashboardComponent {
 
   constructor(
+    private authService: AuthService,
     private router: Router
   ) {}
 
   logout() {
     // Removes the jwt token from the local storage, so the user gets logged out & then navigate back to the "public" routes
-    localStorage.removeItem(LOCALSTORAGE_TOKEN_KEY);
+    this.authService.logout();
     this.router.navigate(['../../']);
   }
 

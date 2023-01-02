@@ -1,7 +1,7 @@
-import { LOCALSTORAGE_TOKEN_KEY } from './../../../app.module';
+import { getToken, LOCALSTORAGE_TOKEN_KEY } from './../../../app.module';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, map, Observable, of, ReplaySubject, Subject, switchMap, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginRequest, UserCredentials, LoginResponse, RegisterRequest, RegisterResponse, LoggedInUser } from '../../interfaces';
@@ -30,11 +30,11 @@ export const fakeRegisterResponse: RegisterResponse = {
   providedIn: 'root'
 })
 export class AuthService {
+  private loggedIn: Subject<boolean> = new ReplaySubject<boolean>(1)
 
   constructor(
     private http: HttpClient,
     private snackbar: MatSnackBar,
-    private jwtService: JwtHelperService,
     private messageService: MessageService
   ) { }
 
@@ -55,13 +55,16 @@ export class AuthService {
 
   login(username: string, password: string): Observable<LoggedInUser> {
 
-    console.log({ username, password })
+    console.log('http://127.0.0.1:8000/api-user-login/')
     return this.http.post<LoggedInUser>(
-      'http://127.0.0.1:8000/api-user-login/', { username, password }).pipe(tap(
-         _ =>
+      'http://127.0.0.1:8000/api-user-login/', { username, password }).pipe(
+      tap(
+        _ =>
         this.log(`login: ${username}`), catchError(this.handleError<LoggedInUser>(`login`))
-      )
-
+      ), tap(_=> this.loggedIn.next(true), tap(() => this.snackbar.open('Login Successfull', 'Close', {
+              duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+             })))
+      
       );
 
   }
@@ -92,12 +95,22 @@ export class AuthService {
     // )
   }
 
+  loginStatusChange(): Observable<boolean> {
+    return this.loggedIn.asObservable();
+  }
+
   /*
    Get the user fromt the token payload
    */
   getLoggedInUser() {
-    const decodedToken = this.jwtService.decodeToken();
-    return decodedToken.user;
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      return userData;
+  
+  }
+
+  logout(){
+    localStorage.removeItem('userData')
+    this.loggedIn.next(false)
   }
 
 
