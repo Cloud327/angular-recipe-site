@@ -59,9 +59,11 @@ export class AuthService {
     return this.http.post<LoggedInUser>(
       'http://127.0.0.1:8000/api-user-login/', { username, password }).pipe(
       tap(
-         _ =>
+        _ =>
         this.log(`login: ${username}`), catchError(this.handleError<LoggedInUser>(`login`))
-      ), tap(_=> this.loggedIn.next(true))
+      ), tap(_=> this.loggedIn.next(true), tap(() => this.snackbar.open('Login Successfull', 'Close', {
+              duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+             })))
       
       );
 

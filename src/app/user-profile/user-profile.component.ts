@@ -16,18 +16,17 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     
-    console.log(this.authService.getLoggedInUser())
-    //this.user = this.authService.getLoggedInUser()
-    // const userId = this.activatedRoute.snapshot.paramMap.get('id');
-    // this.UserService.getUser(userId).subscribe({
-    //     next: (data) => {
-    //       console.log(data);
-    //       this.user = data;
-    //     },
-    //     error: (error) => {
-    //       console.log(error);
-    //     }
-    //   }
-    // );
+    this.user = this.authService.getLoggedInUser()
+    const userId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.UserService.getUser(userId).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.user = data;
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      }
+    );
   }
 }
