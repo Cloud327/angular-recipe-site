@@ -25,13 +25,12 @@
       </mat-menu>
 
 
-
-        
+      
       <ul>
         <div *ngIf="user; then loggedIn else loggedOut"></div>
 
         <ng-template #loggedIn>
-          <div *ngIf="user!.isStaff === true; then isStaff else isUser"></div>
+          <div *ngIf="user?.is_staff == true; then isStaff else isUser"></div>
         </ng-template>
 
         <ng-template #isStaff>
