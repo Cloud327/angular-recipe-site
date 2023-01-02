@@ -1,3 +1,4 @@
+import { User } from "../shared/models/user";
 
 /*
 Interface for the Refresh Token (can look different, based on your backend api)
@@ -56,8 +57,6 @@ export interface RefreshToken {
     password: string;
   }
 
-  export interface LoggedInUser {
-    id: number,
+  export interface LoggedInUser extends User {
     token: string,
-    email:string
   }
