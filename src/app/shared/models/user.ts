@@ -1,8 +1,8 @@
 export interface User{
     token?:string;
     id?:Int16Array;
-    isSuperuser:boolean;
-    isStaff:boolean;
+    is_superuser:boolean;
+    is_staff:boolean;
     email:string;
     password:string;
     groups?:[]
