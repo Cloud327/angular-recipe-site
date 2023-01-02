@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { AuthService } from '../public/services/auth-service/auth.service';
 import { UserService } from '../services/user/user.service';
 import { User } from '../shared/models/user';
 
@@ -9,21 +10,24 @@ import { User } from '../shared/models/user';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  userProfile: User|null = null;
+  user: User|null = null;
 
-  constructor(private UserService: UserService, private activatedRoute: ActivatedRoute) { }
+  constructor(private UserService: UserService, private activatedRoute: ActivatedRoute, private authService:AuthService) { }
 
   ngOnInit(): void {
-    const userId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.UserService.getUserProfile(userId).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.userProfile = data;
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      }
-    );
+    
+    console.log(this.authService.getLoggedInUser())
+    //this.user = this.authService.getLoggedInUser()
+    // const userId = this.activatedRoute.snapshot.paramMap.get('id');
+    // this.UserService.getUser(userId).subscribe({
+    //     next: (data) => {
+    //       console.log(data);
+    //       this.user = data;
+    //     },
+    //     error: (error) => {
+    //       console.log(error);
+    //     }
+    //   }
+    // );
   }
 }
