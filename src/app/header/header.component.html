@@ -16,12 +16,13 @@
       <mat-menu #subMenu="matMenu">
         <button routerLink="/add-recipe" mat-menu-item>Add Recipe</button>
         <button routerLink="/manage-user" mat-menu-item>Manage User</button>
+        <button routerLink="/secret" mat-menu-item>Secret...</button>
       </mat-menu>
       
       <mat-menu #adminMenu="matMenu">
-        <button mat-menu-item>Manage Recipes</button>
-        <button mat-menu-item>Manage Comments</button>
-        <button mat-menu-item>Manage Users</button>
+        <button routerLink="/manage-recipes" mat-menu-item>Manage Recipes</button>
+        <button routerLink="/manage-comments" mat-menu-item>Manage Comments</button>
+        <button routerLink="/manage-users" mat-menu-item>Manage Users</button>
       </mat-menu>
 
 
@@ -31,7 +32,7 @@
         <div *ngIf="user; then loggedIn else loggedOut"></div>
 
         <ng-template #loggedIn>
-          <div *ngIf="user!.isStaff === true; then isStaff else isUser"></div>
+          <div *ngIf="user!.is_staff === true; then isStaff else isUser"></div>
         </ng-template>
 
         <ng-template #isStaff>
@@ -54,7 +55,6 @@
           <li> <!-- dont show this if a user is logged in -->
             <a href="#" routerLink="/login-page"> Login </a>
           </li>
-
         </ng-template>
         <li>
           <a href="#" routerLink="/"> Search </a>

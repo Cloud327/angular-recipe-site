@@ -2,9 +2,6 @@
     <button routerLink="/edit-recipe/{{recipeSlug.slug}}">
         Edit Recipe
     </button>
-    <button routerLink="" (click)="deleteButton()">
-        Delete Recipe
-    </button>
 
 
     <img src="{{recipeSlug.recipe.picture}}" onerror="if (this.src != '../../assets/images/default.jpg') this.src = '../../assets/images/default.jpg';" alt="">

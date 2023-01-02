@@ -32,12 +32,6 @@ export class EditRecipeComponent implements OnInit{
   onSubmit(post:any) {
     console.log("in onSubmit")
     if (this.recipeSlug) {
-      // console.log(" recipe before:", this.recipeSlug)
-      // this.recipeSlug.recipe.name = post.name;
-      // this.recipeSlug.recipe.description = post.description;
-      // this.recipeSlug.recipe.portionSize = post.portionSize;
-
-      // console.log("recipe after:", this.recipeSlug)
       let newRecipe: Recipe = {name:post.name, description:post.description, portionSize:post.portionSize};
       let newRecipeSlug: RecipeSlug = {recipe:newRecipe, slug:this.recipeSlug.slug};
       this.recipeService.updateRecipe(newRecipeSlug).subscribe();
@@ -48,17 +42,5 @@ export class EditRecipeComponent implements OnInit{
   getRecipe(): void {
     const slug = this.route.snapshot.paramMap.get('slug');
     this.recipeService.getRecipe(slug as any).subscribe(recipe => this.recipeSlug = recipe);  
-  }
-
-
-  // Backend is handling slugify
-  slugify(name:string) :string {
-    // angular should have a method to slugify something...
-    return name.toString().toLowerCase()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-    .replace(/^-+/, '')             // Trim - from start of text
-    .replace(/-+$/, '');            // Trim - from end of text
   }
 }
