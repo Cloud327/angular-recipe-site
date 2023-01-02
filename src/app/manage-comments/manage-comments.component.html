@@ -1,0 +1,17 @@
+
+<h2>
+    Manage Comments
+</h2>
+<table *ngIf="comments.length > 0">
+    <tr>
+        <th> Comment </th>
+        <th> Recipe </th>
+        <th> User </th>
+    </tr>
+    <tr *ngFor="let comment of comments">
+        <td> {{comment.text}} </td>
+        <td> {{comment.recipe}} </td>
+        <td> {{comment.user}} </td>
+        <td> <button (click)="deleteCommentButton(comment)" onclick="this.disabled=true">Delete Comment</button> </td>
+    </tr>
+</table>
