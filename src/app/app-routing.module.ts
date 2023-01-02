@@ -6,9 +6,11 @@ import { RecipePageComponent } from './recipe-page/recipe-page.component';
 import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
+  {path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path:'recipe-page/:slug',component:RecipePageComponent},
   {path:'edit-recipe/:slug',component:EditRecipeComponent},
   {path:'add-recipe',component:AddRecipeComponent},
