@@ -8,6 +8,16 @@
         <th> Slug</th>
         <th> Author</th>
     </tr>
+    <tr>
+        <td>
+            <input #nameSearch type="text" name="recipeNameSearchField" id="">
+            <button (click)="recipeNameSearchFieldChanged(nameSearch.value)">Search</button> 
+        </td>
+        <td>
+            <input #slugSearch type="text" name="recipeSlugSearchField" id="" (onchange)="recipeSlugSearchFieldChanged(slugSearch.value)">
+            <button (click)="recipeSlugSearchFieldChanged(slugSearch.value)">Search</button> 
+        </td>
+    </tr>
     <tr *ngFor="let recipe of recipes">
         <td> {{recipe.recipe.name}} </td>
         <td> {{recipe.slug}} </td>

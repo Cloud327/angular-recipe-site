@@ -9,13 +9,45 @@ import { RecipeSlug } from '../shared/models/recipe';
 })
 export class ManageRecipesComponent {
 
+  knownRecipes: RecipeSlug[] = []
   recipes: RecipeSlug[] = []
+
   constructor (
     private recipeService: RecipeService,
     ) {}
   ngOnInit() {
-    this.recipeService.getRecipes().subscribe(recipes => this.recipes = recipes);
+    this.recipeService.getRecipes().subscribe(recipes => {this.recipes = recipes; this.knownRecipes = recipes});
   }
+
+  recipeNameSearchFieldChanged(term:string) {
+    if (term.length == 0) {
+      this.recipes = this.knownRecipes
+      return
+    }
+    var searchedRecipes: RecipeSlug[] = []
+    for(let recipe of this.recipes) {
+      if (recipe.recipe.name.includes(term)) {
+        searchedRecipes.push(recipe)
+      }
+    }
+    this.recipes = []
+    this.recipes = searchedRecipes
+  }
+  recipeSlugSearchFieldChanged(term:string) {
+    if (term.length == 0) {
+      this.recipes = this.knownRecipes
+      return
+    }
+    var searchedRecipes: RecipeSlug[] = []
+    for(let recipe of this.recipes) {
+      if (recipe.slug.includes(term)) {
+        searchedRecipes.push(recipe)
+      }
+    }
+    this.recipes = []
+    this.recipes = searchedRecipes
+  }
+
 
   deleteRecipeButton(recipe: RecipeSlug) {
     console.log("deleting a recipe", recipe)

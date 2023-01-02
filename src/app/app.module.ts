@@ -34,6 +34,7 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManageCommentsComponent } from './manage-comments/manage-comments.component';
 import { ManageRecipesComponent } from './manage-recipes/manage-recipes.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { SecretComponent } from './secret/secret.component';
 
 
 
@@ -59,6 +60,7 @@ export function getToken() {
     ManageCommentsComponent,
     ManageRecipesComponent,
     ManageUsersComponent,
+    SecretComponent,
   ],
   imports: [
     BrowserModule,

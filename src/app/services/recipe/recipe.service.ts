@@ -88,7 +88,7 @@ export class RecipeService {
       // if not search term, return empty recipe array.
       return of([]);
     }
-    return this.http.get<RecipeSlug[]>(`${this.recipeSlugUrl}?name=${term}`).pipe(
+    return this.http.get<RecipeSlug[]>(`${this.recipeSlugUrl}?slug=${term}`).pipe(
       tap(x => x.length ? 
         this.log(`found recipes matching "${term}"`) :
         this.log(`no recipes matching "${term}"`)),

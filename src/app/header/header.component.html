@@ -16,6 +16,7 @@
       <mat-menu #subMenu="matMenu">
         <button routerLink="/add-recipe" mat-menu-item>Add Recipe</button>
         <button routerLink="/manage-user" mat-menu-item>Manage User</button>
+        <button routerLink="/secret" mat-menu-item>Secret...</button>
       </mat-menu>
       
       <mat-menu #adminMenu="matMenu">
@@ -34,9 +35,9 @@
           <li > <!-- only show this if a user is logged in -->
             <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="#" routerLink="/"> Search </a>
-          </li>
+          </li> -->
         </ul>
 
 

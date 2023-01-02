@@ -29,7 +29,6 @@ export class AddRecipeComponent {
     category: new FormControl(null, [Validators.required])
   })
 
-
   constructor(
     private formBuilder: FormBuilder,
     private recipeService: RecipeService,
@@ -48,35 +47,33 @@ export class AddRecipeComponent {
   }
 
   onSubmit(post:any) {
-    let newRecipe : Recipe = {name: '', description:'',portionSize:1,creationDate:'',categories: [], ingredients: [], author:''}
+    const datepipe: DatePipe = new DatePipe('en-US')
+    let formattedDate = datepipe.transform(new Date(), 'YYYY-MM-dd') // date needs to be yyyy-mm-dd
+
+    // create a new Recipe to submit to backend
+    let newRecipe : Recipe = {name: '', description:''}
     newRecipe.name = post.name;
     newRecipe.description = post.description;
     newRecipe.portionSize = post.portionSize;
-    // date needs to be yyyy-mm-dd
-
-    const datepipe: DatePipe = new DatePipe('en-US')
-    let formattedDate = datepipe.transform(new Date(), 'YYYY-MM-dd')
-    console.log(formattedDate)
-
-    newRecipe.creationDate = formattedDate as string; // i dont know which format this is, but i dont know what format we use either soo...
+    newRecipe.creationDate = formattedDate as string; 
     newRecipe.author = "guest@guest.com"; // TODO: check which user is currently logged in and submit them instead
     newRecipe.categories = post.categories;
     newRecipe.ingredients = post.ingredientAmounts;
+    // newRecipe.picture = this.file
 
     let RecipeSlug : RecipeSlug = {recipe:newRecipe, slug:""}
 
     console.log("trying to submit: ", newRecipe);
-    this.recipeService.addRecipe(RecipeSlug).subscribe(); // this gives keyError on "user_id"
-    // this.recipeService.addRecipeWithoutSlug(newRecipe).subscribe();
+    this.recipeService.addRecipe(RecipeSlug).subscribe();
   }
 
   /** get stuff from recipeService */
   getIngredients(): void {
     this.recipeService.getIngredients().subscribe(ingredients => this.knownIngredients = ingredients)
-   }
+  }
   getCategories(): void {
     this.recipeService.getCategories().subscribe(categories => this.knownCategories = categories)
-   }
+  }
 
 
   get ingredientAmounts() : FormArray {  
@@ -100,16 +97,9 @@ export class AddRecipeComponent {
   removeCategory(i:number): void { 
     this.categories.removeAt(i)
   }
-
-
-
-  slugify(name:string) :string {
-    // angular should have a method to slugify something...
-    return name.toString().toLowerCase()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-    .replace(/^-+/, '')             // Trim - from start of text
-    .replace(/-+$/, '');            // Trim - from end of text
+  handleImageChange(event: any) {
+    // console.log("event", event)
+    // this.file.image_url = event.target.files[0];
+    // console.log("file? ", this.file)
   }
 }
