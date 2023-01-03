@@ -2,7 +2,7 @@ import { getToken, LOCALSTORAGE_TOKEN_KEY } from './../../../app.module';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, ReplaySubject, Subject, switchMap, tap } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
+// import { JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginRequest, UserCredentials, LoginResponse, RegisterRequest, RegisterResponse, LoggedInUser } from '../../interfaces';
 import { MessageService } from 'src/app/services/tools/message.service';
@@ -69,19 +69,19 @@ export class AuthService {
   /*
    The `..of()..` can be removed if you have a real backend, at the moment, this is just a faked response
   */
-  register(registerRequest: RegisterRequest): Observable<RegisterResponse> {
+  register(email: string, password: string): Observable<RegisterResponse> {
     // TODO
-    return of(fakeRegisterResponse).pipe(
-      tap((res: RegisterResponse) => this.snackbar.open(`User created successfully`, 'Close', {
-        duration: 2000, horizontalPosition: 'center', verticalPosition: 'top'
-      })),
-    );
+    // return of(fakeRegisterResponse).pipe(
+    //   tap((res: RegisterResponse) => this.snackbar.open(`User created successfully`, 'Close', {
+    //     duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+    //   })),
+    // );
     // == Example of how backend could be connected ==
-    // return this.http.post<RegisterResponse>('/api/auth/register', registerRequest).pipe(
-    // tap((res: RegisterResponse) => this.snackbar.open(`User created successfully`, 'Close', {
-    //  duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
-    // }))
-    // )
+    return this.http.post<RegisterResponse>('http://127.0.0.1:8000/users/', {email, password}).pipe(
+    tap((res: RegisterResponse) => this.snackbar.open(`User created successfully`, 'Close', {
+     duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+    }))
+    )
   }
 
   loginStatusChange(): Observable<boolean> {
