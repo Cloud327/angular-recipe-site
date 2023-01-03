@@ -7,18 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginRequest, UserCredentials, LoginResponse, RegisterRequest, RegisterResponse, LoggedInUser } from '../../interfaces';
 import { MessageService } from 'src/app/services/tools/message.service';
 
-export const fakeLoginResponse: LoginResponse = {
-  // fakeAccessToken.....should all come from real backend
-  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-  refreshToken: {
-    id: 1,
-    userId: 2,
-    token: 'fakeRefreshToken...should all come from real backend',
-    refreshCount: 2,
-    expiryDate: new Date(),
-  },
-  tokenType: 'JWT'
-}
+
 
 export const fakeRegisterResponse: RegisterResponse = {
   status: 200,
@@ -53,16 +42,16 @@ export class AuthService {
   //     }))
   //   );
 
-  login(username: string, password: string): Observable<LoggedInUser> {
+  login(username: string, password: string): Observable<LoginResponse> {
 
     console.log('http://127.0.0.1:8000/api-user-login/')
-    return this.http.post<LoggedInUser>(
+    return this.http.post<LoginResponse>(
       'http://127.0.0.1:8000/api-user-login/', { username, password }).pipe(
       tap(
         _ =>
-        this.log(`login: ${username}`), catchError(this.handleError<LoggedInUser>(`login`))
+        this.log(`login: ${username}`), catchError(this.handleError<LoginResponse>(`login`))
       ),  tap(() => this.snackbar.open('Login Successfull', 'Close', {
-              duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
+              duration: 2000, horizontalPosition: 'center', verticalPosition: 'top'
              }))
       
       );
@@ -105,7 +94,7 @@ export class AuthService {
    Get the user fromt the token payload
    */
   getLoggedInUser() {
-      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      const userData: LoggedInUser = JSON.parse(localStorage.getItem('userData') || '{}');
       return userData;
   
   }
@@ -116,7 +105,7 @@ export class AuthService {
   }
 
 
-  setLoggedInUser(userData: LoggedInUser): void {
+  setLoggedInUser(userData: LoginResponse): void {
     if (localStorage.getItem('userData') !== JSON.stringify(userData)) {
       localStorage.setItem('userData', JSON.stringify(userData));
     }

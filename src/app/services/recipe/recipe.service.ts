@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category, Ingredient, Recipe, RecipeSlug } from 'src/app/shared/models/recipe';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, ReplaySubject, Subject, tap } from 'rxjs';
 import { MessageService } from 'src/app/services/tools/message.service';
 import { RecipeComment } from 'src/app/shared/models/recipeComment';
 import { User } from 'src/app/shared/models/user';
@@ -75,10 +75,13 @@ export class RecipeService {
       catchError(this.handleError<RecipeComment[]>(`getRecipeComments`)))
   }
   postRecipeComment(comment: RecipeComment): Observable<RecipeComment> {
+    
     return this.http.post<RecipeComment>(this.commentsUrl, comment, this.httpOptions).pipe(
-      tap(_ => this.log(`uploaded comment`)),
+      tap(_ => this.log(`uploaded comment`)), 
       catchError(this.handleError<any>('postRecipeComment')));
   }
+
+
 
 
 
@@ -120,6 +123,8 @@ export class RecipeService {
       catchError(this.handleError<RecipeSlug>('deleteRecipe'))
     );
   }
+
+
 
   /** DELETE: delete the comment from the server */
   deleteComment(id: number): Observable<RecipeComment> {

@@ -11,14 +11,7 @@ export interface RefreshToken {
     expiryDate: Date;
   }
   
-  /*
-  Interface for the Login Response (can look different, based on your backend api)
-  */
-  export interface LoginResponse {
-    accessToken: string;
-    refreshToken: RefreshToken;
-    tokenType: string;
-  }
+  
   
   /*
   Interface for the Login Request (can look different, based on your backend api)
@@ -52,11 +45,28 @@ export interface RefreshToken {
   /*
    These are the only ones used right now
    */
+
+
+  /*
+  Used as an interface for localstorage data
+  */
+  export interface LoggedInUser {
+    token: string;
+    id: Int16Array;
+    email: string;
+    is_staff: boolean;
+    is_superuser: boolean;
+  }
+
+
   export interface UserCredentials {
     email: string;
     password: string;
   }
 
-  export interface LoggedInUser extends User {
+  /*
+  Used as an interface for the data recieved when logging in
+  */
+  export interface LoginResponse extends User {
     token: string,
   }
