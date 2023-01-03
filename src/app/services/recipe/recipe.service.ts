@@ -144,6 +144,15 @@ export class RecipeService {
       catchError(this.handleError<User>('deleteUser'))
     );
   }
+  /** PUT: update the user to admin on the server */
+  promoteUser(user: User): Observable<User> {
+    const url = `${this.usersUrl}${user.id}/`;
+
+    return this.http.put<User>(url, user, this.httpOptions).pipe(
+      tap(_ => this.log(`promote user = ${user.id}`)),
+      catchError(this.handleError<User>('promoteUser'))
+    );
+  }
 
   /** PUT: update the recpe on the server */
   updateRecipe(recipeSlug: RecipeSlug): Observable<RecipeSlug> {

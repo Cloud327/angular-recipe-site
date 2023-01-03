@@ -5,12 +5,15 @@
     <tr>
         <th> User ID</th>
         <th> Email </th>
-        <th> Is Admin</th>
+        <th> Admin</th>
+        <th> Super</th>
     </tr>
     <tr *ngFor="let user of users">
         <td> {{user.id}} </td>
         <td> {{user.email}} </td>
         <td> {{user.is_staff? "True": "False"}} </td>
+        <td> {{user.is_superuser? "True": "False"}} </td>
         <td> <button (click)="deleteUserButton(user)" onclick="this.disabled=true">Delete User</button> </td>
+        <td *ngIf="currentUser.is_superuser"> <button [disabled]="user.is_staff" (click)="promoteUser(user)" onclick="this.disabled=true">Promote to Admin</button> </td>
     </tr>
 </table>
