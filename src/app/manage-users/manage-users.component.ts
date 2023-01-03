@@ -22,6 +22,6 @@ export class ManageUsersComponent {
 
   deleteUserButton(user: User) {
     console.log("deleting a user", user)
-    this.recipeService.deleteUser(user.id as unknown as number).subscribe();
+    this.recipeService.deleteUser(user.id as unknown as number).subscribe(result=>this.ngOnInit());
   }
 }

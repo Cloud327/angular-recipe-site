@@ -19,8 +19,20 @@
     <p>
         Saved recipes: {{ user?.savedRecipes }}
     </p>
-          
-        
+
+    <form class="changePassword-form" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+        <mat-form-field class="example-full-width">
+          <mat-label>New password</mat-label>
+          <input matInput placeholder="new password" formControlName="password">
+        </mat-form-field>
+
+        <div class="button">
+            <!-- Button is disabled(not clickable), if our LoginForm contains Validation Errors -->
+            <button type="submit">Change password</button>
+          </div>
+      
+    </form>
+      
+
      
-    
-    </div>
+</div>
