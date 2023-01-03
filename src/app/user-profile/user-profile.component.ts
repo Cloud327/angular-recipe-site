@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+import { LoggedInUser } from '../public/interfaces';
 import { AuthService } from '../public/services/auth-service/auth.service';
 import { UserService } from '../services/user/user.service';
 import { User } from '../shared/models/user';
@@ -16,7 +17,6 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.user = this.authService.getLoggedInUser()
     const userId = this.activatedRoute.snapshot.paramMap.get('id');
     this.UserService.getUser(userId).subscribe({
         next: (data) => {
