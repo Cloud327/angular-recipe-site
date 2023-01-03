@@ -14,7 +14,9 @@
     <div *ngFor="let comment of comments">
         <mat-card *ngIf="comment.recipe == recipeID">
             <h3> {{comment.text}} </h3>
+            <td> <button (click)="deleteComment(comment)" onclick="this.disabled=true">Delete Comment</button> </td>
         </mat-card>
+        
     </div>
 
     <!-- form to submit own comments -->

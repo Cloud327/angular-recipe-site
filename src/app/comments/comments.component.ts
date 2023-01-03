@@ -35,7 +35,7 @@ export class CommentsComponent implements OnInit{
 
 
   ngOnInit() {
-    this.recipeService.getRecipeComments().subscribe(comments => this.comments = comments);
+    this.getRecipeComments()
   }
 
   onSubmit(post: any) {
@@ -44,8 +44,14 @@ export class CommentsComponent implements OnInit{
     // why do i even try? :(
     let comment: RecipeComment = {recipe: this.recipeID, user:2, text:post.text}
     this.recipeService.postRecipeComment(comment).subscribe();
-
     this.commentForm.reset();
+    this.ngOnInit()
+  }
+
+  deleteComment(comment: RecipeComment){
+    this.recipeService.deleteComment(comment.id as number).subscribe();
+    this.ngOnInit()
+
   }
 
   getRecipeComments() {
