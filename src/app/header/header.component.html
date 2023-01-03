@@ -26,27 +26,35 @@
       </mat-menu>
 
 
-      
+
       <ul>
-        <div *ngIf="user; then loggedIn else loggedOut"></div>
+        <div *ngIf="user;then loggedIn else loggedOut"></div>
 
+        
         <ng-template #loggedIn>
-          <div *ngIf="user?.is_staff == true; then isStaff else isUser"></div>
-        </ng-template>
+          <div *ngIf="user!.is_staff; then isStaff else isUser"></div>
 
-        <ng-template #isStaff>
-              <li > <!-- only show this if an admin is logged in -->
-                <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
-              </li>
-              <li > 
-                <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
-              </li>
-        </ng-template>  
+          <ng-template #isStaff>
+            <li > <!-- only show this if an admin is logged in -->
+              <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
+            </li>
 
-        <ng-template #isUser>
-              <li > <!-- only show this if a user is logged in -->
-                <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
-              </li>
+            <li > <!-- only show this if a user is logged in -->
+              <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
+            </li>
+            
+
+          </ng-template>
+
+          <ng-template #isUser>
+            
+          <li > <!-- only show this if a user is logged in -->
+            <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
+          </li>
+
+          </ng-template>
+          
+
         </ng-template>
 
 
@@ -54,10 +62,16 @@
           <li> <!-- dont show this if a user is logged in -->
             <a href="#" routerLink="/login-page"> Login </a>
           </li>
+
         </ng-template>
+
+        
+
         <li>
           <a href="#" routerLink="/"> Search </a>
         </li>
+
+        
           
       </ul>
 

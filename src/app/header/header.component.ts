@@ -10,15 +10,20 @@ import { User } from '../shared/models/user';
 })
 export class HeaderComponent implements OnInit {
 
-  user:User|null
+  user: User|null
 
   constructor(public auth:AuthService, private userService:UserService) {
-    this.auth.loginStatusChange().subscribe(loggedIn => {
-      this.user = this.auth.getLoggedInUser()
-    })
+    
    }
 
   ngOnInit(): void {
+    this.auth.loginStatusChange().subscribe(loggedIn => { if (loggedIn == false){
+      this.user = null
+    }else{
+      this.user = this.auth.getLoggedInUser()
+    }
+       console.log("IS LOGGED IN:, ", loggedIn), console.log("USER: ", this.user)
+    })
     
   }
 

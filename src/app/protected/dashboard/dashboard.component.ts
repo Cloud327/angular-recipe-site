@@ -16,7 +16,7 @@ export class DashboardComponent {
   ) {}
 
   logout() {
-    // Removes the jwt token from the local storage, so the user gets logged out & then navigate back to the "public" routes
+    // Removes the token from the local storage, so the user gets logged out & then navigate back to the "public" routes
     this.authService.logout();
     this.router.navigate(['../../']);
   }

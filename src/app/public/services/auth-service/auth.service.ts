@@ -61,9 +61,9 @@ export class AuthService {
       tap(
         _ =>
         this.log(`login: ${username}`), catchError(this.handleError<LoggedInUser>(`login`))
-      ), tap(_=> this.loggedIn.next(true), tap(() => this.snackbar.open('Login Successfull', 'Close', {
+      ),  tap(() => this.snackbar.open('Login Successfull', 'Close', {
               duration: 2000, horizontalPosition: 'right', verticalPosition: 'top'
-             })))
+             }))
       
       );
 
@@ -96,6 +96,8 @@ export class AuthService {
   }
 
   loginStatusChange(): Observable<boolean> {
+
+    
     return this.loggedIn.asObservable();
   }
 
@@ -118,6 +120,7 @@ export class AuthService {
     if (localStorage.getItem('userData') !== JSON.stringify(userData)) {
       localStorage.setItem('userData', JSON.stringify(userData));
     }
+    this.loggedIn.next(true)
    }
 
   /**

@@ -16,9 +16,7 @@ export class ManageCommentsComponent {
   ngOnInit() {
     this.recipeService.getRecipeComments().subscribe(comments => this.comments = comments);
   }
-  getRecipeComments() {
-    this.recipeService.getRecipeComments().subscribe(comments => this.comments = comments);
-  }
+
   deleteCommentButton(rc: RecipeComment) {
     console.log("deleting a comment", rc)
     this.recipeService.deleteComment(rc.id as number).subscribe();

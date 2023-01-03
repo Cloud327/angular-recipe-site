@@ -33,8 +33,8 @@ export class LoginComponent {
     // )
     .subscribe({
       next: (data) => {
-        this.authService.setLoggedInUser(data);
         this.router.navigateByUrl(`/user-profile/${data.id}`);
+        this.authService.setLoggedInUser(data);
         console.log(data);
       },
       error: (error) => {
