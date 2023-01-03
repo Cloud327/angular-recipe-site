@@ -43,14 +43,14 @@ export class CommentsComponent implements OnInit{
 
     // why do i even try? :(
     let comment: RecipeComment = {recipe: this.recipeID, user:2, text:post.text}
-    this.recipeService.postRecipeComment(comment).subscribe();
+    this.recipeService.postRecipeComment(comment).subscribe(result=> this.ngOnInit());
+    
     this.commentForm.reset();
-    this.ngOnInit()
+    
   }
 
   deleteComment(comment: RecipeComment){
-    this.recipeService.deleteComment(comment.id as number).subscribe();
-    this.ngOnInit()
+    this.recipeService.deleteComment(comment.id as number).subscribe(result =>this.ngOnInit());
 
   }
 
