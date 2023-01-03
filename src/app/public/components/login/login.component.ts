@@ -26,6 +26,7 @@ export class LoginComponent {
     if (!this.loginForm.valid) {
       return;
     }
+    console.log(this.loginForm.value.email, this.loginForm.value.password)
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
     // .pipe(
     //   // route to protected/dashboard, if login was successfull

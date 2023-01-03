@@ -14,9 +14,6 @@ export class RegisterComponent {
 
   registerForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
-    username: new FormControl(null, [Validators.required]),
-    firstname: new FormControl(null, [Validators.required]),
-    lastname: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
     passwordConfirm: new FormControl(null, [Validators.required])
   },
@@ -33,7 +30,7 @@ export class RegisterComponent {
     if (!this.registerForm.valid) {
       return;
     }
-    this.authService.register(this.registerForm.value as any).pipe(
+    this.authService.register(this.registerForm.value.email as unknown as string, this.registerForm.value.password as unknown as string).pipe(
       // If registration was successfull, then navigate to login route
       tap(() => this.router.navigate(['../login']))
     ).subscribe();
