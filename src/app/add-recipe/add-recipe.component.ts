@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe/recipe.service';
-import { Category, Ingredient, Recipe, RecipeSlug } from '../shared/models/recipe';
+import { Category, Ingredient, Recipe, RecipeSlug, RecipeSlugWithFile, RecipeWithFile } from '../shared/models/recipe';
+import axios, { AxiosHeaders } from 'axios';
 
 @Component({
   selector: 'app-add-recipe',
@@ -13,6 +14,8 @@ import { Category, Ingredient, Recipe, RecipeSlug } from '../shared/models/recip
 export class AddRecipeComponent { 
   knownIngredients: Ingredient[] = [];
   knownCategories: Category[] = [];
+
+  image_file: any 
 
   addForm = this.formBuilder.group({
     name: new FormControl(null, [Validators.required]),
@@ -28,6 +31,7 @@ export class AddRecipeComponent {
   categoryFrom = this.formBuilder.group({
     category: new FormControl(null, [Validators.required])
   })
+  url: string | ArrayBuffer | null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,8 +44,8 @@ export class AddRecipeComponent {
     this.getCategories();
 
     // add empty ingredient and category
-    this.addIngredient();
-    this.addCategory();
+    // this.addIngredient();
+    // this.addCategory();
 
 
   }
@@ -59,12 +63,27 @@ export class AddRecipeComponent {
     newRecipe.author = "guest@guest.com"; // TODO: check which user is currently logged in and submit them instead
     newRecipe.categories = post.categories;
     newRecipe.ingredients = post.ingredientAmounts;
-    // newRecipe.picture = this.file
+    // newRecipe.picture = this.image_file;
 
-    let RecipeSlug : RecipeSlug = {recipe:newRecipe, slug:""}
+    let RecipeSlug : RecipeSlug = {recipe: newRecipe, slug:""}
 
     console.log("trying to submit: ", newRecipe);
-    this.recipeService.addRecipe(RecipeSlug).subscribe();
+    this.recipeService.addRecipe(RecipeSlug).subscribe(res => {
+      console.log("res",res)
+
+      // let newRecipe: Recipe = {name:post.name, description:post.description, portionSize:post.portionSize, picture:this.image_file};
+      // let newRecipeSlug: RecipeSlug = {recipe:newRecipe, slug:res.slug};
+      // this.recipeService.updateRecipe(newRecipeSlug).subscribe()
+
+      const imagedata = {"name":post.name,"description":post.description, "portionSize":post.portionSize, "picture":this.image_file}
+
+      axios.put(`http://localhost:8000/recipes/${res.recipe.id}/`,imagedata, {headers: {
+        'Content-Type': 'multipart/form-data',}
+    }).then(res => console.log("we did it",res)).catch(function(error){console.log("axios error:",error)})
+    });
+
+    // let imageRecipe : RecipeWithFile = {name: post.name, description: post.description, picture:this.image_file}
+    // this.recipeService.addImageToRecipe(imageRecipe,2).subscribe();
   }
 
   /** get stuff from recipeService */
@@ -98,8 +117,15 @@ export class AddRecipeComponent {
     this.categories.removeAt(i)
   }
   handleImageChange(event: any) {
-    // console.log("event", event)
-    // this.file.image_url = event.target.files[0];
-    // console.log("file? ", this.file)
+    console.log("event", event)
+    this.image_file = event.target.files[0];
+    console.log("file? ", this.image_file)
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.image_file); 
+    reader.onload = (_event) => { 
+        this.url = reader.result; 
+    }
+
   }
 }
