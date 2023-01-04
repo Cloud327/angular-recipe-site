@@ -1,0 +1,16 @@
+
+<div class="form-container">
+    <form [formGroup]="nodeMailerForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter mail:</mat-label>
+        <input matInput #email placeholder="enter email here" formControlName="email" type="email">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter message:</mat-label>
+        <input matInput #email placeholder="enter message here" formControlName="message" type="message">
+      </mat-form-field>
+      <br>
+   <button  mat-raised-button color="accent" type="submit" (click)="sendMail()">Click Me</button>
+  </form>
+</div>
