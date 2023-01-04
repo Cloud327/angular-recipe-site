@@ -28,6 +28,19 @@
           <button type="submit" mat-button [disabled]="!loginForm.valid">Login</button>
         </div>
 
+
+        <br>
+
+        <div class="button">
+          <!-- Button is disabled(not clickable), if our LoginForm contains Validation Errors -->
+          <button type="submit" (click)="signInWithGoogle()">Login with Google</button>
+        </div>
+
+        <div class="button">
+          <!-- Button is disabled(not clickable), if our LoginForm contains Validation Errors -->
+          <button type="submit" (click)="signInWithFB()">Login with Facebook</button>
+        </div>
+        
       </form>
     </mat-card-content>
   </mat-card>

@@ -4,11 +4,14 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { MessageService } from 'src/app/services/tools/message.service';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialAuthServiceConfig} from '@abacritt/angularx-social-login';
+import { RecipeService } from 'src/app/services/recipe/recipe.service';
+import { LoginResponse } from '../../interfaces';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
 
@@ -19,7 +22,9 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private socialAuthService: SocialAuthService,
+    private recipeService: RecipeService
   ) { }
 
   login() {
@@ -43,5 +48,64 @@ export class LoginComponent {
       }
     });
   }
+
+  signInWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(result => {
+      let firstKey = sessionStorage.key(0)!.toString()
+      if (firstKey){
+        let sessionData = JSON.parse(sessionStorage.getItem(firstKey) || '{}')
+        let loginData = {
+          access_token:sessionData.authResponse.accessToken,
+            code:"",
+            id_token:sessionData.authResponse.userID,
+        }
+        this.authService.fbLoginWithAcessToken(loginData).subscribe( data=>{
+          this.updateTokenUserData(result, data)
+
+          this.recipeService.getUsers().subscribe(users => {
+          let user:LoginResponse = this.findUser(users, result.email)
+          user.token = data.key
+          this.authService.setLoggedInUser(user)
+          this.router.navigateByUrl(`/user-profile/${user.id}`);
+          }
+
+
+          )
+          
+          
+          }
+        )
+
+      }
+    });
+
+  }
+
+  findUser(users: any, email: any): any{
+      for (var user of users){
+        if(user.email == email){
+          return user
+        }
+        
+      }
+  }
+
+
+
+  updateTokenUserData(loginData: any, token:any): void{
+    let userData = {
+      token: token.key,
+      email: loginData.email
+    }
+    localStorage.setItem('userData', JSON.stringify(userData))
+  }
+
+
+
+
 
 }

@@ -38,6 +38,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { TokenInterceptor } from './token.interceptor';
 import { WebsocketComponent } from './websocket/websocket.component';
 import { EmailComponent } from './email/email.component';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 
 
@@ -67,6 +68,7 @@ export function getToken() {
     EmailComponent,
   ],
   imports: [
+    SocialLoginModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -90,7 +92,28 @@ export function getToken() {
       }
     })
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          // {
+          //   id: GoogleLoginProvider.PROVIDER_ID,
+          //   provider: new GoogleLoginProvider(
+          //     '690160039500591'
+          //   )
+          // },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('690160039500591')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -42,6 +42,9 @@
             <li >
               <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
             </li>
+            <li>
+              <a href="#" routerLink="/email"> Send email </a>
+            </li>
             
 
           </ng-template>
@@ -51,14 +54,15 @@
           <li >
             <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
           </li>
+          <li>
+            <a href="#" routerLink="/email"> Send email </a>
+          </li>
 
 
           </ng-template>
         </ng-template>
 
-        <li>
-          <a href="#" routerLink="/email"> Send email </a>
-        </li>
+        
 
 
         <ng-template #loggedOut>

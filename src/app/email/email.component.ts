@@ -23,7 +23,7 @@ export class EmailComponent implements OnInit{
   }
 
   sendMail(){
-    alert("jjj");
+    alert("sent mail");
     let email  = this.nodeMailerForm.value.email;
     let message = this.nodeMailerForm.value.message;
     let reqObj = {

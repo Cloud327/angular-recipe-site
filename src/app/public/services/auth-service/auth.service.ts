@@ -57,6 +57,25 @@ export class AuthService {
       );
 
   }
+
+
+  fbLoginWithAcessToken(loginData: any): Observable<any>{ 
+    return this.http.post<any>(
+      'http://127.0.0.1:8000/dj-rest-auth/facebook/', loginData).pipe(
+      tap(
+        _ =>
+        this.log(`facebook login`), catchError(this.handleError<string>(`login`))
+      ),  tap(() => this.snackbar.open('Login Successfull', 'Close', {
+              duration: 2000, horizontalPosition: 'center', verticalPosition: 'top'
+            }))
+      
+      );
+  }
+
+  fbGetUser(userID: string): Observable<any>{
+    return this.http.get<any>(
+      'http://127.0.0.1:8000/dj-rest-auth/facebook/' + userID + "/")
+  }    
     // == Example of how backend could be connected ==
     // return this.http.post<LoginResponse>('/api/auth/login', loginRequest).pipe(
     // tap((res: LoginResponse) => localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, res.accessToken)),
