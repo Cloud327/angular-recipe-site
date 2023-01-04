@@ -23,10 +23,17 @@
             Password is required</mat-error>
         </mat-form-field>
 
+
         <div class="button">
           <!-- Button is disabled(not clickable), if our LoginForm contains Validation Errors -->
           <button type="submit" mat-button [disabled]="!loginForm.valid">Login</button>
         </div>
+
+        <br>
+        <mat-checkbox [checked]="twofactor" (change)="updateTFA()">Two-factor Authentication</mat-checkbox>
+        
+
+
 
 
         <br>
@@ -43,5 +50,6 @@
         
       </form>
     </mat-card-content>
+    
   </mat-card>
 </div>

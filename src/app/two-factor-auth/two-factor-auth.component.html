@@ -1,0 +1,10 @@
+<div class="form-container">
+    <form [formGroup]="numberForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter code:</mat-label>
+        <input matInput #email placeholder="enter email here" formControlName="enteredNumber" type="text">
+      </mat-form-field>
+      <br>
+   <button  mat-raised-button color="accent" type="submit" (click)="checkNumber()">Click Me</button>
+  </form>
+</div>

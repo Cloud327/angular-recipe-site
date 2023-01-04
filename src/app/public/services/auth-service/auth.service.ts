@@ -19,7 +19,7 @@ export const fakeRegisterResponse: RegisterResponse = {
   providedIn: 'root'
 })
 export class AuthService {
-  private loggedIn: Subject<boolean> = new ReplaySubject<boolean>(1)
+  public loggedIn: Subject<boolean> = new ReplaySubject<boolean>(1)
 
   constructor(
     private http: HttpClient,

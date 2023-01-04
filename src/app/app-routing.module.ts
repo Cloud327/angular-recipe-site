@@ -12,6 +12,7 @@ import { SecretComponent } from './secret/secret.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { WebsocketComponent } from './websocket/websocket.component';
 import { EmailComponent } from './email/email.component';
+import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path:'user',component:UserProfileComponent, canActivate: [AuthGuard]},
   {path:'websocket',component:WebsocketComponent},
   {path:'email',component:EmailComponent},
+  {path:'two-factor',component:TwoFactorAuthComponent},
   {
     // Lazy Loading the public module (all children routes will be under '/public/{route from lazy loaded module}')
     path: 'public',

@@ -27,6 +27,7 @@ import { MatOptionModule } from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { CommentsComponent } from './comments/comments.component';
@@ -39,6 +40,7 @@ import { TokenInterceptor } from './token.interceptor';
 import { WebsocketComponent } from './websocket/websocket.component';
 import { EmailComponent } from './email/email.component';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component';
 
 
 
@@ -66,6 +68,7 @@ export function getToken() {
     UserProfileComponent,
     WebsocketComponent,
     EmailComponent,
+    TwoFactorAuthComponent,
   ],
   imports: [
     SocialLoginModule,
@@ -80,6 +83,7 @@ export function getToken() {
     MatOptionModule,
     FormsModule, 
     ReactiveFormsModule, 
+    MatCheckboxModule,
     MatCardModule, 
     MatMenuModule,
     MatInputModule,
