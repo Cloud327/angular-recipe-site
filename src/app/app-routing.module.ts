@@ -10,6 +10,8 @@ import { ManageRecipesComponent } from './manage-recipes/manage-recipes.componen
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { SecretComponent } from './secret/secret.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { WebsocketComponent } from './websocket/websocket.component';
+import { EmailComponent } from './email/email.component';
 
 
 const routes: Routes = [
@@ -23,6 +25,8 @@ const routes: Routes = [
   {path:'manage-users',component:ManageUsersComponent},
   {path:'secret',component:SecretComponent},
   {path:'user',component:UserProfileComponent, canActivate: [AuthGuard]},
+  {path:'websocket',component:WebsocketComponent},
+  {path:'email',component:EmailComponent},
   {
     // Lazy Loading the public module (all children routes will be under '/public/{route from lazy loaded module}')
     path: 'public',

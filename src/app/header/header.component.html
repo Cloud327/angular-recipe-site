@@ -34,28 +34,31 @@
         <ng-template #loggedIn>
           <div *ngIf="user!.is_staff; then isStaff else isUser"></div>
 
-          <ng-template #isStaff>
-            <li > <!-- only show this if an admin is logged in -->
+          <ng-template #isStaff>  <!-- only show this if an admin is logged in -->
+            <li >
               <a [matMenuTriggerFor]="adminMenu" #locationMenuTrigger="matMenuTrigger"> Admin </a>
             </li>
 
-            <li > <!-- only show this if a user is logged in -->
+            <li >
               <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
             </li>
             
 
           </ng-template>
 
-          <ng-template #isUser>
+          <ng-template #isUser>  <!-- only show this if a user is logged in -->
             
-          <li > <!-- only show this if a user is logged in -->
+          <li >
             <a [matMenuTriggerFor]="rootMenu" #locationMenuTrigger="matMenuTrigger"> User </a>
           </li>
 
-          </ng-template>
-          
 
+          </ng-template>
         </ng-template>
+
+        <li>
+          <a href="#" routerLink="/email"> Send email </a>
+        </li>
 
 
         <ng-template #loggedOut>
@@ -69,6 +72,10 @@
 
         <li>
           <a href="#" routerLink="/"> Search </a>
+        </li>
+
+        <li>
+          <a href="#" routerLink="/websocket"> Chat </a>
         </li>
 
         

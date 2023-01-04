@@ -36,6 +36,8 @@ import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { SecretComponent } from './secret/secret.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { TokenInterceptor } from './token.interceptor';
+import { WebsocketComponent } from './websocket/websocket.component';
+import { EmailComponent } from './email/email.component';
 
 
 
@@ -61,6 +63,8 @@ export function getToken() {
     ManageUsersComponent,
     SecretComponent,
     UserProfileComponent,
+    WebsocketComponent,
+    EmailComponent,
   ],
   imports: [
     BrowserModule,
