@@ -1,0 +1,44 @@
+
+<h1>
+    Angular + WebSockets
+  </h1>
+  <br>
+  <div class="row">
+    <div class="column">
+      <textarea [(ngModel)]="content" name="contentInput" cols="40" rows="5"></textarea>
+      <br>
+      <button (click)="sendMsg()">Send Message</button>
+    </div>
+  
+  </div>
+  <br>
+  <div>
+    <h1>Sent Messages</h1>
+    <br>
+    <ul>
+      <li *ngFor="let item of sent">Source: {{item.sender}} -> Content {{item.text}}</li>
+    </ul>
+  </div>
+  
+  <br>
+  <div>
+    <h1>Received Messages</h1>
+    <br>
+    <ul>
+      <li *ngFor="let item of received">Source: {{item.sender}} -> Content {{item.text}}</li>
+    </ul>
+  </div>
+
+  <form class="changeRoom-form" [formGroup]="changeRoomForm" (ngSubmit)="changeRoom()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Room adress</mat-label>
+      <input matInput placeholder="input room id here" formControlName="room">
+    </mat-form-field>
+
+    <div class="button">
+        <!-- Button is disabled(not clickable), if our LoginForm contains Validation Errors -->
+        <button type="submit">Change room</button>
+      </div>
+  
+</form>
+  
