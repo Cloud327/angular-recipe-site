@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category, Ingredient, Recipe, RecipeSlug } from 'src/app/shared/models/recipe';
+import { Category, Ingredient, Recipe, RecipeSlug, RecipeSlugWithFile, RecipeWithFile } from 'src/app/shared/models/recipe';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, Observable, of, ReplaySubject, Subject, tap } from 'rxjs';
 import { MessageService } from 'src/app/services/tools/message.service';
@@ -22,6 +22,10 @@ export class RecipeService {
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  httpOptionsImage = {
+    // headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' })
   };
 
 
@@ -106,12 +110,17 @@ export class RecipeService {
       catchError(this.handleError<RecipeSlug>('addRecipe'))
     );
   }
-  /** POST: add a new recipe to the server */
-  addRecipeWithoutSlug(recipeSlug: Recipe): Observable<any> {
-    return this.http.post<Recipe>(this.recipesUrl, recipeSlug, this.httpOptions).pipe(
-      tap((newRecipe: Recipe) => this.log(`added recipe = ${newRecipe.name}`)),
-      catchError(this.handleError<Recipe>('addRecipe'))
+  /** Put: add a image to a recipe on the server */
+  addImageToRecipe(update: {"name":string,"description":string, "portionSize":number, "picture":File}, id:number): Observable<any> {
+    const url = `${this.recipesUrl}${id}/`;
+
+    console.log("update", update)
+    
+    return this.http.put<{"name":string,"description":string, "portionSize":number, "picture":File}>(url, update, this.httpOptionsImage).pipe(
+      tap(_ => this.log(`updated recipe = ${update.name}`)),
+      catchError(this.handleError<{"name":string,"description":string, "portionSize":number, "picture":File}>('updateRecipe'))
     );
+
   }
 
   /** DELETE: delete the recipe from the server */

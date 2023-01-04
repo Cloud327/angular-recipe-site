@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe/recipe.service';
-import { Category, Ingredient, Recipe, RecipeSlug } from '../shared/models/recipe';
+import { Category, Ingredient, Recipe, RecipeSlug, RecipeSlugWithFile, RecipeWithFile } from '../shared/models/recipe';
+import axios, { AxiosHeaders } from 'axios';
 
 @Component({
   selector: 'app-add-recipe',
@@ -13,6 +14,8 @@ import { Category, Ingredient, Recipe, RecipeSlug } from '../shared/models/recip
 export class AddRecipeComponent { 
   knownIngredients: Ingredient[] = [];
   knownCategories: Category[] = [];
+
+  image_file: any 
 
   addForm = this.formBuilder.group({
     name: new FormControl(null, [Validators.required]),
@@ -28,6 +31,7 @@ export class AddRecipeComponent {
   categoryFrom = this.formBuilder.group({
     category: new FormControl(null, [Validators.required])
   })
+  url: string | ArrayBuffer | null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,10 +44,8 @@ export class AddRecipeComponent {
     this.getCategories();
 
     // add empty ingredient and category
-    this.addIngredient();
-    this.addCategory();
-
-
+    // this.addIngredient();
+    // this.addCategory();
   }
 
   onSubmit(post:any) {
@@ -59,12 +61,19 @@ export class AddRecipeComponent {
     newRecipe.author = "guest@guest.com"; // TODO: check which user is currently logged in and submit them instead
     newRecipe.categories = post.categories;
     newRecipe.ingredients = post.ingredientAmounts;
-    // newRecipe.picture = this.file
 
-    let RecipeSlug : RecipeSlug = {recipe:newRecipe, slug:""}
+    let RecipeSlug : RecipeSlug = {recipe: newRecipe, slug:""}
+    this.recipeService.addRecipe(RecipeSlug).subscribe(res => {
+      // for the image we first upload the recipeSlug without an image and then update the recipe to add the image
 
-    console.log("trying to submit: ", newRecipe);
-    this.recipeService.addRecipe(RecipeSlug).subscribe();
+      // i hate doing it like this, but it works i guess...
+      // our normal recipeService http solution could not accept that image_file is a file
+      // but axios does apparently, so lets use both i guess...
+      const imagedata = {"name":post.name,"description":post.description, "portionSize":post.portionSize, "picture":this.image_file}
+      axios.put(`http://localhost:8000/recipes/${res.recipe.id}/`,imagedata, {headers: {
+        'Content-Type': 'multipart/form-data',}
+    }).then(res => console.log("we did it",res))
+    });
   }
 
   /** get stuff from recipeService */
@@ -98,8 +107,15 @@ export class AddRecipeComponent {
     this.categories.removeAt(i)
   }
   handleImageChange(event: any) {
-    // console.log("event", event)
-    // this.file.image_url = event.target.files[0];
-    // console.log("file? ", this.file)
+    console.log("event", event)
+    this.image_file = event.target.files[0];
+    console.log("file? ", this.image_file)
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.image_file); 
+    reader.onload = (_event) => { 
+        this.url = reader.result; 
+    }
+
   }
 }

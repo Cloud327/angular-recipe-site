@@ -7,11 +7,26 @@ export interface Recipe {
     categories?:Category[];
     ingredients?:IngredientAmount[];
     author?:string;
-    picture?:string;
+    picture?:string | File;
+}
+export interface RecipeWithFile {
+    id?:number;    
+    name:string;
+    description?:string;
+    portionSize?:number; 
+    creationDate?:string;
+    categories?:Category[];
+    ingredients?:IngredientAmount[];
+    author?:string;
+    picture?:File;
 }
 
 export interface RecipeSlug {
     recipe:Recipe;
+    slug:string
+}
+export interface RecipeSlugWithFile {
+    recipe:RecipeWithFile;
     slug:string
 }
 
