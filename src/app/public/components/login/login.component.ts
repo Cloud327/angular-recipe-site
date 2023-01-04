@@ -15,6 +15,8 @@ import { LoginResponse } from '../../interfaces';
 })
 export class LoginComponent {
 
+  twofactor:boolean = false;
+
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required]),
@@ -31,6 +33,7 @@ export class LoginComponent {
     if (!this.loginForm.valid) {
       return;
     }
+    
     console.log(this.loginForm.value.email, this.loginForm.value.password)
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
     // .pipe(
@@ -39,14 +42,28 @@ export class LoginComponent {
     // )
     .subscribe({
       next: (data) => {
-        this.router.navigateByUrl(`/user-profile/${data.id}`);
+
         this.authService.setLoggedInUser(data);
-        console.log(data);
+        if (this.twofactor){
+          this.router.navigateByUrl(`/two-factor`);
+        }else{
+          this.router.navigateByUrl(`/user-profile/${data.id}`);
+        }
+
+        
+        
+    
+        
+
       },
       error: (error) => {
         console.log(error);
       }
     });
+
+    
+    
+
   }
 
   signInWithGoogle(): void {
@@ -102,6 +119,10 @@ export class LoginComponent {
       email: loginData.email
     }
     localStorage.setItem('userData', JSON.stringify(userData))
+  }
+
+  updateTFA(){
+    this.twofactor = !this.twofactor
   }
 
 
