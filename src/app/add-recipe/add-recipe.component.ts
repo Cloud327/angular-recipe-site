@@ -59,8 +59,9 @@ export class AddRecipeComponent {
     newRecipe.portionSize = post.portionSize;
     newRecipe.creationDate = formattedDate as string; 
     newRecipe.author = "guest@guest.com"; // TODO: check which user is currently logged in and submit them instead
-    newRecipe.categories = post.categories;
-    newRecipe.ingredients = post.ingredientAmounts;
+    // ingredients and categories need some more love and care to be able to be uploaded, do not work yet...
+    // newRecipe.categories = post.categories;
+    // newRecipe.ingredients = post.ingredientAmounts;
 
     let RecipeSlug : RecipeSlug = {recipe: newRecipe, slug:""}
     this.recipeService.addRecipe(RecipeSlug).subscribe(res => {
