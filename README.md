@@ -2,7 +2,7 @@
 
 # Setting Up the Project on your computer
  - clone repo
- - run "npm install" in project directory to install all required packages
+ - run "npm install" in project directory to install angular and all required packages
  - run "ng serve -o" to start development server and open it in browser, to run with https (for social login) run it with "--ssl true" 
  - Then you just need to install the backend https://github.com/oliolo/backend which has it's own installation.
 
