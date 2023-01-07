@@ -1,75 +1,29 @@
-# Project requirements
-
-**To get a grade 3, the following should be done**
-
-### Front end
-- At least 5 pages that are "responsive in design"
-  - Must contain at least 1 image across all pages
-  - Must contain at least 1 video across all pages
-  - Must contain at least 1 table across all pages
-  - Must contain at least 1 collapsable "div" element
-  - Must contain at least 1 drop-down list
-  - At least 1 page that shows the use of authenticationLinks to an external site.
-  - At least 2 pages that show the use of authorizationLinks to an external site.
-  - Must show CRUD Links to an external site.operations
-    - At least one form submission that shows the authorization
-- Must have at least 1 navigation menu
-  - It must have at least 1 sub-menu inside one of the main navigation menu
-- Client-side rendering
-- Must have at least 5 calls to the back end that are done asynchronouslyLinks to an external site.
-- Out of these 5, at least 2 calls are "protected" (authentication and/or authorization required)
-### Back end
-- Database
-  - Must use a database with at least 5 tables
-  - Must have the following relations
-    - one to one
-    - one to many
-    - many to many
-  - (if using a relational database) Must be a 3NF compliantLinks to an external site.
-- Authentication
-  - Support the creation of users, using email and password
-  - Ability to log in, log out, and reset passwords
-- Authorization
-  - Use Access control with at least three different roles
-      - Ex: Regular User, Admin, Super User
-- Deployment
-    - Deploy to a web server
-- Use Git
-    - Must use Git, and must show gradual progress
-- Performance evaluation
-    - Must do at least two performance evaluations
-      - Ex 1: show page load loads across two different implementations, explain why 1 is better than the other
-      - Ex 2: show database query results or query forming that shows which is better, and explain why so
-      
-**Additional work to get grade 4**
-
-- Integrate at least three third-party packages that add services
-  - Emailing
-  - Storage to S3 for user file uploads
-  - Adding social login
-- Admin pages (do not use built-it admin pages)
-    - At least 5 admin pages, that are used for managing data from the database
-    - At least 1 page that supports searching, at least two search fields
-    - At least 2 asynchronous calls (check for both authentication and authorization)
-      - Ex: Populate table from a search query
-- Advanced performance reporting
-  - Ex PHP vs Python
-  - Ex 1 framework vs another framework 
-- Use web sockets for real-time data updates
-
-**Additional work to get grade 5**
-
-- Completely SOA based designed
-  - use of API's based design 
-  - The database runs on 1 server
-  - front-end on 2nd server
-  - back-end on 3rd server
-- 2FA Links to an external site.Authentication (your own) implementation
-
-
-
-
 # AngularRecipeSite
+
+# Setting Up the Project on your computer
+ - clone repo
+ - run "npm install" in project directory to install all required packages
+ - run "ng serve -o" to start development server and open it in browser, to run with https (for social login) run it with "--ssl true" 
+ - Then you just need to install the backend https://github.com/oliolo/backend which has it's own installation.
+
+## Getting Social Login to work
+
+Run the frontend on https to work with facebook social login.
+Go to https://developers.facebook.com/apps and create a new app. 
+Select the app’s type as Business and leave everything as default. 
+Go ahead and create the app. You will be redirected to the new app’s dashboard page. 
+On the sidebar, you will get a link that says, “Add product”. Click it. Then find the “Facebook Login” and click on its Set Up button.
+Next, choose WEB, and in the site, URL input box write ‘localhost:8000’. 
+After this, click save and keep clicking on continue.
+Look at the sidebar and click on Settings>Basic. 
+There you will get App ID which you want to place on line 107 in the 'src\app\app.module.ts' file.
+
+
+
+
+
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
 
