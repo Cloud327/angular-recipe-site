@@ -1,6 +1,10 @@
 # AngularRecipeSite
 
 # Setting Up the Project on your computer
+## Prerequisites
+  - nodeJs
+
+## Setup
  - clone repo
  - run "npm install" in project directory to install angular and all required packages
  - run "ng serve -o" to start development server and open it in browser, to run with https (for social login) run it with "--ssl true" 
