@@ -102,15 +102,9 @@ export function getToken() {
       useValue: {
         autoLogin: false,
         providers: [
-          // {
-          //   id: GoogleLoginProvider.PROVIDER_ID,
-          //   provider: new GoogleLoginProvider(
-          //     '690160039500591'
-          //   )
-          // },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('690160039500591')
+            provider: new FacebookLoginProvider('PLS INSERT FACEBOOK APPID HERE')
           }
         ],
         onError: (err) => {
